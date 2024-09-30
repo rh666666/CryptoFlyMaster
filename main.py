@@ -18,16 +18,16 @@ def nogui_mode():
             5. 希尔密码
             q. 退出
             ''')
-        mode = int(input("输入："))
-        if mode == 1:
+        mode = input("输入：")
+        if mode == '1':
             model.keyed_sub.nogui()
-        elif mode == 2:
+        elif mode == '2':
             model.affine.nogui()
-        elif mode == 3:
+        elif mode == '3':
             model.vigenere.nogui()
-        elif mode == 4:
+        elif mode == '4':
             model.playfair.nogui()
-        elif mode == 5:
+        elif mode == '5':
             model.hill.nogui()
         elif mode == 'q':
             return
