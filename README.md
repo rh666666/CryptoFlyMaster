@@ -1,10 +1,17 @@
 # CryptoFlyMaster
-A crypto toolbox with python.
-
+A crypto toolbox with python.  
 一个古典密码工具箱。
 
 # 开始
+## 安装和依赖
+打开`cmd`或者`Power Shell`，输入以下命令：
+```shell
+git clone https://github.com/rh666666/CryptoFlyMaster.git
+cd CryptoFlyMaster
+pip install -r requirements.txt
+```
 ## 使用
-打开<mark>终端</mark>，输入以下命令：
+打开`cmd`或者`Power Shell`，输入以下命令：
 ```shell
 python main.py -nogui
+```
