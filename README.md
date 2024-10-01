@@ -20,5 +20,5 @@ python main.py
 ```
 字符界面启动：
 ```shell
-python main.py -nogui
+python main.py --nogui
 ```
