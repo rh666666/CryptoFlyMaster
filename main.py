@@ -25,14 +25,19 @@ def nogui_mode():
             ''')
         mode = input("输入：")
         if mode == '1':
+            subprocess.call("cls", shell=True)
             model.keyed_sub.nogui()
         elif mode == '2':
+            subprocess.call("cls", shell=True)
             model.affine.nogui()
         elif mode == '3':
+            subprocess.call("cls", shell=True)
             model.vigenere.nogui()
         elif mode == '4':
+            subprocess.call("cls", shell=True)
             model.playfair.nogui()
         elif mode == '5':
+            subprocess.call("cls", shell=True)
             model.hill.nogui()
         elif mode == 'q':
             return
