@@ -67,18 +67,21 @@ def nogui():
                 key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
             except ValueError:
                 print('密钥错误，请重试。')
+                continue
             fill_alpha = input('填充字母：')
             try:
                 print(f'密文：{encrypt(message, key, fill_alpha)}')
             except ValueError:
                 print('密钥矩阵在模26下不可逆，请重试。')
+                continue
         elif mode == '2':
             cipher_text = input('密文：')
+            key = input('密钥：')
             try:
-                key = input('密钥：')
+                key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
             except ValueError:
                 print('密钥错误，请重试。')
-            key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
+                continue
             print(f'明文：{decrypt(cipher_text, key)}')
         elif mode == 'q':
             break

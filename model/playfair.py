@@ -90,6 +90,8 @@ def encrypt(message, key, alpha):
     for group in groups:
         p1 = group[0]
         p2 = group[1]
+        print(f'p1 = {p1}')
+        print(f'p2 = {p2}')
 
         # 寻找p1和p2在表中的位置
         i1, j1 = getTwoDimensionListIndex(table, p1)
