@@ -40,6 +40,7 @@ def nogui_mode():
             subprocess.call("cls", shell=True)
             model.hill.nogui()
         elif mode == 'q':
+            subprocess.call("cls", shell=True)
             return
         else:
             print("Error: 请输入1-5.")
