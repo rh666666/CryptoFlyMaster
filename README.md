@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ```shell
 python main.py
 ```
-无GUI界面启动：
+字符界面启动：
 ```shell
 python main.py -nogui
 ```
