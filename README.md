@@ -12,7 +12,12 @@ cd CryptoFlyMaster
 pip install -r requirements.txt
 ```
 ## 使用
-打开`cmd`或者`Power Shell`，输入以下命令：
+打开`cmd`或者`Power Shell`
+图形界面启动：
+```shell
+python main.py
+```
+无GUI界面启动：
 ```shell
 python main.py -nogui
 ```
