@@ -37,20 +37,20 @@ def decrypt(cipher_text, key):
 
 def nogui():
     while True:
-        mode = input("1. 加密\n2. 解密\nq. 退出\n请选择：")
+        mode = input("1. 加密 2. 解密 (q 退出): ")
 
         if mode == '1':
-            message = input("明文：")
-            key = input("密钥：")
+            message = input("输入明文：")
+            key = input("输入密钥：")
             print(f"密文：{encrypt(message, key)}")
         elif mode == '2':
-            cipher_text = input("密文：")
-            key = input("密钥：")
+            cipher_text = input("输入密文：")
+            key = input("输入密钥：")
             print(f"明文：{decrypt(cipher_text, key)}")
         elif mode == 'q':
             break
         else:
-            print("Error: 请输入1/2/q.")
+            print("输入有误，请重新输入。")
 
 def main():
     pass

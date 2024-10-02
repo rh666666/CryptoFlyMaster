@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\学习相关资料\apps\CryptoFlyMaster\UI\main.ui'
+# Form implementation generated from reading ui file 'd:\学习相关资料\密码学\code\work1\UI\main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(625, 727)
+        MainWindow.resize(321, 482)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 60, 321, 181))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 60, 201, 131))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.lineEdit_fill)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(410, 160, 160, 80))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(230, 120, 95, 71))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -72,10 +72,10 @@ class Ui_MainWindow(object):
         self.pushButton_2.setObjectName("pushButton_2")
         self.verticalLayout_2.addWidget(self.pushButton_2)
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(20, 280, 571, 411))
+        self.textBrowser.setGeometry(QtCore.QRect(10, 200, 251, 221))
         self.textBrowser.setObjectName("textBrowser")
         self.title = QtWidgets.QLabel(self.centralwidget)
-        self.title.setGeometry(QtCore.QRect(200, 10, 221, 21))
+        self.title.setGeometry(QtCore.QRect(40, 20, 221, 21))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.title.setFont(font)
@@ -83,7 +83,7 @@ class Ui_MainWindow(object):
         self.title.setObjectName("title")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 625, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 321, 26))
         self.menubar.setObjectName("menubar")
         self.menuTradition = QtWidgets.QMenu(self.menubar)
         self.menuTradition.setObjectName("menuTradition")

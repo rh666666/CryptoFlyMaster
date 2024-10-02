@@ -25,15 +25,26 @@ def decrypt(cipher_text, key1, key2):
     return decrypted_text
 
 def nogui():
-    message = input('Enter the message to encrypt: ')
-    key1, key2 = map(int,input('Enter key1, key2: ').split(' '))
-    cipher_text = encrypt(message, key1, key2)
-    print('Encrypted text:', cipher_text)
-    if not rp(key1,26):
-        print('由于key1与26不互素，该密文不可逆！')
-        exit()
-    decrypted_text = decrypt(cipher_text, key1, key2)
-    print('Decrypted text:', decrypted_text)
+    while True:
+        mode = input('1. 加密 2. 解密 (q 退出): ')
+
+        if mode == '1':
+            message = input('输入明文：')
+            key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            cipher_text = encrypt(message, key1, key2)
+            print('Encrypted text:', cipher_text)
+        elif mode == '2':
+            cipher_text = input('输入密文：')
+            key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            if not rp(key1,26):
+                print('由于key1与26不互素，该密文不可逆！')
+                continue
+            decrypted_text = decrypt(cipher_text, key1, key2)
+            print('Decrypted text:', decrypted_text)
+        elif mode == 'q':
+            break
+        else:
+            print('输入有误，请重新输入。')
 
 def main():
     pass
