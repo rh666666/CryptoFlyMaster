@@ -1,175 +1,218 @@
 import argparse,os , sys, pyfiglet
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 
-import UI.Ui_tool, UI.Ui_main
-import model.keyed_sub, model.affine, model.vigenere, model.playfair, model.hill
+import UI.Ui_main
+import model.keyed_sub, model.affine, model.vigenere, model.playfair, model.hill, model.eratosthenes
 from model.exgcd import rp as rp
+from model.errors import MessageError, KeyError, AlphaError
 
-class ui_keyed_sub(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = UI.Ui_tool.Ui_Form()
-        self.ui.setupUi(self)
-        self.ui.label_fill.setVisible(False)
-        self.ui.lineEdit_fill.setVisible(False)
-        self.ui.label_key2.setVisible(False)
-        self.ui.lineEdit_key2.setVisible(False)
-        self.ui.pushButton.clicked.connect(self.encrypt)
-        self.ui.pushButton_2.clicked.connect(self.decrypt)
-        self.setWindowIcon(QIcon("image/icon.png"))
-        self.setWindowTitle("使用密钥的单表代替密码")
-        
 
-    def encrypt(self):
-        message = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
-        self.ui.textBrowser.setPlainText(f"密文：{model.keyed_sub.encrypt(message, key)}")
+def ui_keyed_sub(ui):
+    ui.title.setVisible(True)
+    ui.label_text.setVisible(True)
+    ui.lineEdit_text.setVisible(True)
+    ui.label_key1.setVisible(True)
+    ui.lineEdit_key1.setVisible(True)
+    ui.label_key2.setVisible(False)
+    ui.lineEdit_key2.setVisible(False)
+    ui.label_fill.setVisible(False)
+    ui.lineEdit_fill.setVisible(False)
+    ui.pushButton.setVisible(True)
+    ui.pushButton_2.setVisible(True)
+    ui.textBrowser.setVisible(True)
 
-    def decrypt(self):
-        cipher_text = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.keyed_sub.decrypt(cipher_text, key)}")
+    ui.pushButton.clicked.connect(lambda: encrypt())
+    ui.pushButton_2.clicked.connect(lambda: decrypt())
+    ui.title.setText('密钥单表')
+    ui.title.setAlignment(Qt.AlignCenter)
     
-class ui_affine(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = UI.Ui_tool.Ui_Form()
-        self.ui.setupUi(self)
-        self.ui.label_key1.setText('key1')
-        self.ui.label_fill.setVisible(False)
-        self.ui.lineEdit_fill.setVisible(False)
-        self.ui.pushButton.clicked.connect(self.encrypt)
-        self.ui.pushButton_2.clicked.connect(self.decrypt)
-        self.setWindowIcon(QIcon("image/icon.png"))
-        self.setWindowTitle("仿射密码")
+    def encrypt():
+        message = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        ui.textBrowser.setPlainText(f"密文：{model.keyed_sub.encrypt(message, key)}")
+
+    def decrypt():
+        cipher_text = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        ui.textBrowser.setPlainText(f"明文：{model.keyed_sub.decrypt(cipher_text, key)}")
+    
+def ui_affine(ui):
+    ui.title.setVisible(True)
+    ui.label_text.setVisible(True)
+    ui.lineEdit_text.setVisible(True)
+    ui.label_key1.setVisible(True)
+    ui.label_key1.setText('key1')
+    ui.lineEdit_key1.setVisible(True)
+    ui.label_key2.setVisible(True)
+    ui.label_key2.setText('key2')
+    ui.lineEdit_key2.setVisible(True)
+    ui.label_fill.setVisible(False)
+    ui.lineEdit_fill.setVisible(False)
+    ui.pushButton.setVisible(True)
+    ui.pushButton_2.setVisible(True)
+    ui.textBrowser.setVisible(True)
+
+    ui.pushButton.clicked.connect(lambda: encrypt())
+    ui.pushButton_2.clicked.connect(lambda: decrypt())
+    ui.title.setText('仿射密码')
+    ui.title.setAlignment(Qt.AlignCenter)
         
 
-    def encrypt(self):
-        message = self.ui.lineEdit_text.text()
-        key1 = int(self.ui.lineEdit_key1.text())
-        key2 = int(self.ui.lineEdit_key2.text())
-        self.ui.textBrowser.setPlainText(f"密文：{model.affine.encrypt(message, key1, key2)}")
+    def encrypt():
+        message = ui.lineEdit_text.text()
+        key1 = int(ui.lineEdit_key1.text())
+        key2 = int(ui.lineEdit_key2.text())
+        ui.textBrowser.setPlainText(f"密文：{model.affine.encrypt(message, key1, key2)}")
 
-    def decrypt(self):
-        cipher_text = self.ui.lineEdit_text.text()
-        key1 = int(self.ui.lineEdit_key1.text())
+    def decrypt():
+        cipher_text = ui.lineEdit_text.text()
+        key1 = int(ui.lineEdit_key1.text())
         if not rp(key1,26):
-            self.ui.textBrowser.setPlainText("由于key1与26不互素，该密文不可逆！")
+            ui.textBrowser.setPlainText("由于key1与26不互素，该密文不可逆！")
             return
-        key2 = int(self.ui.lineEdit_key2.text())
-        self.ui.textBrowser.setPlainText(f"明文：{model.affine.decrypt(cipher_text, key1, key2)}")
+        key2 = int(ui.lineEdit_key2.text())
+        ui.textBrowser.setPlainText(f"明文：{model.affine.decrypt(cipher_text, key1, key2)}")
 
-class ui_vegenere(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = UI.Ui_tool.Ui_Form()
-        self.ui.setupUi(self)
-        self.ui.label_fill.setVisible(False)
-        self.ui.lineEdit_fill.setVisible(False)
-        self.ui.label_key2.setVisible(False)
-        self.ui.lineEdit_key2.setVisible(False)
-        self.ui.pushButton.clicked.connect(self.encrypt)
-        self.ui.pushButton_2.clicked.connect(self.decrypt)
-        self.setWindowIcon(QIcon("image/icon.png"))
-        self.setWindowTitle("维吉尼亚密码")
+def ui_vegenere(ui):
+    ui.title.setVisible(True)
+    ui.label_text.setVisible(True)
+    ui.lineEdit_text.setVisible(True)
+    ui.label_key1.setVisible(True)
+    ui.lineEdit_key1.setVisible(True)
+    ui.label_key2.setVisible(False)
+    ui.lineEdit_key2.setVisible(False)
+    ui.label_fill.setVisible(False)
+    ui.lineEdit_fill.setVisible(False)
+    ui.pushButton.setVisible(True)
+    ui.pushButton_2.setVisible(True)
+    ui.textBrowser.setVisible(True)
+
+    ui.pushButton.clicked.connect(lambda: encrypt())
+    ui.pushButton_2.clicked.connect(lambda: decrypt())
+    ui.title.setText('维吉尼亚密码')
+    ui.title.setAlignment(Qt.AlignCenter)
         
 
-    def encrypt(self):
-        message = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
-        self.ui.textBrowser.setPlainText(f"密文：{model.vigenere.encrypt(message, key)}")
+    def encrypt():
+        message = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        ui.textBrowser.setPlainText(f"密文：{model.vigenere.encrypt(message, key)}")
 
-    def decrypt(self):
-        cipher_text = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.vigenere.decrypt(cipher_text, key)}")
+    def decrypt():
+        cipher_text = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        ui.textBrowser.setPlainText(f"明文：{model.vigenere.decrypt(cipher_text, key)}")
 
-class ui_playfair(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = UI.Ui_tool.Ui_Form()
-        self.ui.setupUi(self)
-        self.ui.label_key2.setVisible(False)
-        self.ui.lineEdit_key2.setVisible(False)
-        self.ui.pushButton.clicked.connect(self.encrypt)
-        self.ui.pushButton_2.clicked.connect(self.decrypt)
-        self.setWindowIcon(QIcon("image/icon.png"))
-        self.setWindowTitle("Playfair密码")
+def ui_playfair(ui):
+    ui.title.setVisible(True)
+    ui.label_text.setVisible(True)
+    ui.lineEdit_text.setVisible(True)
+    ui.label_key1.setVisible(True)
+    ui.lineEdit_key1.setVisible(True)
+    ui.label_key2.setVisible(False)
+    ui.lineEdit_key2.setVisible(False)
+    ui.label_fill.setVisible(True)
+    ui.lineEdit_fill.setVisible(True)
+    ui.pushButton.setVisible(True)
+    ui.pushButton_2.setVisible(True)
+    ui.textBrowser.setVisible(True)
+
+    ui.pushButton.clicked.connect(lambda: encrypt())
+    ui.pushButton_2.clicked.connect(lambda:decrypt())
+    ui.title.setText(' Playfair 密码')
+    ui.title.setAlignment(Qt.AlignCenter)
         
+    def encrypt():
+        message = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        fill_char = ui.lineEdit_fill.text()
+        try:
+            ui.textBrowser.setPlainText(f"密文：{model.playfair.encrypt(message, key, fill_char)}")
+        except MessageError:
+            ui.textBrowser.setPlainText('明文不能为空！')
+        except AlphaError:
+            ui.textBrowser.setPlainText('加密填充字符不能为空！')
 
-    def encrypt(self):
-        message = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
-        fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"密文：{model.playfair.encrypt(message, key, fill_char)}")
+    def decrypt():
+        cipher_text = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
+        fill_char = ui.lineEdit_fill.text()
+        ui.textBrowser.setPlainText(f"明文：{model.playfair.decrypt(cipher_text, key)}")
 
-    def decrypt(self):
-        cipher_text = self.ui.lineEdit.text()
-        key = self.ui.lineEdit_key1.text()
-        fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.playfair.encrypt(cipher_text, key, fill_char)}")
+def ui_hill(ui):
+    ui.title.setVisible(True)
+    ui.label_text.setVisible(True)
+    ui.lineEdit_text.setVisible(True)
+    ui.label_key1.setVisible(True)
+    ui.lineEdit_key1.setVisible(True)
+    ui.label_key2.setVisible(False)
+    ui.lineEdit_key2.setVisible(False)
+    ui.label_fill.setVisible(True)
+    ui.lineEdit_fill.setVisible(True)
+    ui.pushButton.setVisible(True)
+    ui.pushButton_2.setVisible(True)
+    ui.textBrowser.setVisible(True)
 
-class ui_hill(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = UI.Ui_tool.Ui_Form()
-        self.ui.setupUi(self)
-        self.ui.label_key2.setVisible(False)
-        self.ui.lineEdit_key2.setVisible(False)
-        self.ui.pushButton.clicked.connect(self.encrypt)
-        self.ui.pushButton_2.clicked.connect(self.decrypt)
-        self.setWindowIcon(QIcon("image/icon.png"))
-        self.setWindowTitle("希尔密码")
-        
+    ui.pushButton.clicked.connect(lambda: encrypt())
+    ui.pushButton_2.clicked.connect(lambda: decrypt())
+    ui.title.setText('希尔密码')
+    ui.title.setAlignment(Qt.AlignCenter)
 
-    def encrypt(self):
-        message = self.ui.lineEdit_text.text()
-        key = self.ui.lineEdit_key1.text()
+    def encrypt():
+        message = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
         try:
             key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
         except ValueError:
-            self.ui.textBrowser.setPlainText('密钥错误，请重试。')
-        fill_char = self.ui.lineEdit_fill.text()
+            ui.textBrowser.setPlainText('密钥错误，请重试。')
+        fill_char = ui.lineEdit_fill.text()
         try:
-            self.ui.textBrowser.setPlainText(f"密文：{model.hill.encrypt(message, key, fill_char)}")
+            ui.textBrowser.setPlainText(f"密文：{model.hill.encrypt(message, key, fill_char)}")
         except ValueError:
-            self.ui.textBrowser.setPlainText('密钥矩阵在模26下不可逆，请重试。')
+            ui.textBrowser.setPlainText('密钥矩阵在模26下不可逆，请重试。')
 
-    def decrypt(self):
-        cipher_text = self.ui.lineEdit.text()
-        key = self.ui.lineEdit_key1.text()
+    def decrypt():
+        cipher_text = ui.lineEdit_text.text()
+        key = ui.lineEdit_key1.text()
         try:
             key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
         except ValueError:
-            self.ui.textBrowser.setPlainText('密钥错误，请重试。')
-        fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.hill.encrypt(cipher_text, key, fill_char)}")
+            ui.textBrowser.setPlainText('密钥错误，请重试。')
+        ui.textBrowser.setPlainText(f"明文：{model.hill.decrypt(cipher_text, key)}")
 
 def ui_mode():
-    print("不好意思哈，UI还没做好……")
-    print("这边建议 python main.py --nogui 无UI启动程序呢~")
     app = QApplication(sys.argv)
-    window = QMainWindow()
+    win = QMainWindow()
 
     main_ui = UI.Ui_main.Ui_MainWindow()
-    main_ui.setupUi(window)
+    main_ui.setupUi(win)
+    main_ui.title.setText('CryptoFlyMaster')
+    main_ui.title.setAlignment(Qt.AlignCenter)
+
+    main_ui.title.setVisible(True)
+    main_ui.label_text.setVisible(False)
+    main_ui.lineEdit_text.setVisible(False)
+    main_ui.label_key1.setVisible(False)
+    main_ui.lineEdit_key1.setVisible(False)
+    main_ui.label_key2.setVisible(False)
+    main_ui.lineEdit_key2.setVisible(False)
+    main_ui.label_fill.setVisible(False)
+    main_ui.lineEdit_fill.setVisible(False)
+    main_ui.pushButton.setVisible(False)
+    main_ui.pushButton_2.setVisible(False)
+    main_ui.textBrowser.setVisible(False)
     
-    window.keyed_sub = ui_keyed_sub()
-    window.affine = ui_affine()
-    window.vegenere = ui_vegenere()
-    window.playfair = ui_playfair()
-    window.hill = ui_hill()
+    main_ui.actionKeyedsub.triggered.connect(lambda: ui_keyed_sub(main_ui))
+    main_ui.actionAffine.triggered.connect(lambda: ui_affine(main_ui))
+    main_ui.actionVegenere.triggered.connect(lambda: ui_vegenere(main_ui))
+    main_ui.actionPlayfair.triggered.connect(lambda: ui_playfair(main_ui))
+    main_ui.actionHill.triggered.connect(lambda: ui_hill(main_ui))
 
-    main_ui.pushButton.clicked.connect(window.keyed_sub.show)
-    main_ui.pushButton_2.clicked.connect(window.affine.show)
-    main_ui.pushButton_3.clicked.connect(window.vegenere.show)
-    main_ui.pushButton_4.clicked.connect(window.playfair.show)
-    main_ui.pushButton_5.clicked.connect(window.hill.show)
-
-    window.setWindowTitle('CryptoFlyMaster')
-    window.setWindowIcon(QIcon('image/icon.png'))
-    window.show()
+    win.setWindowTitle('CryptoFlyMaster')
+    win.setWindowIcon(QIcon('image/icon.png'))
+    win.show()
     sys.exit(app.exec_())
 
 def nogui_mode():
@@ -183,6 +226,7 @@ def nogui_mode():
             3. 维吉尼亚密码
             4. Playfair密码
             5. 希尔密码
+            6. 输出200以内的所有素数
             q. 退出
             ''')
         mode = input("输入：")
@@ -201,6 +245,9 @@ def nogui_mode():
         elif mode == '5':
             os.system('cls' if os.name == 'nt' else 'clear') 
             model.hill.nogui()
+        elif mode == '6':
+            os.system('cls' if os.name == 'nt' else 'clear') 
+            model.eratosthenes.nogui()
         elif mode == 'q':
             os.system('cls' if os.name == 'nt' else 'clear') 
             return

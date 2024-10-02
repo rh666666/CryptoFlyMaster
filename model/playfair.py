@@ -16,6 +16,7 @@
 # 明文两个一组： pl    ay    fa    ir    ci       ph    er
 # 对应密文为: 　  LA    YF    PY   RS   MR    AM    CD
 # ----------------------------------------------------------------
+from model.errors import MessageError, AlphaError
 
 # 格式化文本
 def text_format(text):
@@ -32,8 +33,8 @@ def getTwoDimensionListIndex(list, value):
 
 #构造字母矩阵     
 def setTwoDimensionList(key):
-    alpha_table = [chr(i) for i in range(ord('a'), ord('z') + 1)]
-    alpha_table.remove('j')
+    alpha_table = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
+    alpha_table.remove('J')
 
     table = []
     key = text_format(key)
@@ -47,14 +48,6 @@ def setTwoDimensionList(key):
     for i in alpha_table:
         if not i in table:
             table.append(i)
-    
-    # 若明文字母数为奇数，在明文的末端添加预先约定好的字母
-    if len(table) % 2 == 1:  
-        table.append(alpha_table[0])    # 若明文字母数为奇数，在明文的末端添加预先约定好的字母
-    
-    # 若明文字母数为偶数，在明文的末端添加一个字母，该字母在明文中不可能与任何字母重合
-    if len(table) % 2 == 0:  
-        table.append(alpha_table[1])    # 若明文字母数为偶数，在明文的末端添加一个字母，该字母在明文中不可能与任何字母重
 
     # 全员大写
     table = [i.upper() if i.islower() else i for i in table]
@@ -71,19 +64,27 @@ def encrypt(message, key, alpha):
     # 明文中转化为大写，并把J替换为I
     message = text_format(message)
     alpha = text_format(alpha)
+    if message == []:
+        raise MessageError("明文不能为空！")
 
+    if alpha == []:
+        raise AlphaError("填充字母不能为空！")
+    
     # 检查每组是否会出现p1=p2情况，如果有，则填充预先约定好的字母
     i = 0
     while True:
-        if message[i] == message[i+1]: message.insert(i+1, alpha[0])
+        if message[i] == message[i+1]:
+            message.insert(i+1, alpha[0])
+
         i += 2
-        if i >= len(message) - 1: break
+        if i >= len(message) - 2:
+            break
 
     if len(message) % 2 == 1:  
         message.append(alpha[0])    # 若明文字母数为奇数，在明文的末端添加预先约定好的字母
     
     # 明文分组
-    groups = [message[i:i+2] for i in range(0, len(message), 2)]
+    groups = [message[i:i+2] for i in range(0, len(message) - 1, 2)]
     
     # 明文两两对照
     cipher_text = ''
@@ -120,7 +121,7 @@ def decrypt(cipher_text, key):
     cipher_text = text_format(cipher_text)
 
     # 密文分组
-    groups = [cipher_text[i:i+2] for i in range(0, len(cipher_text), 2)]
+    groups = [cipher_text[i:i+2] for i in range(0, len(cipher_text) - 1, 2)]
 
     # 密文两两对照
     message = ''
