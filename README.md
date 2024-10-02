@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # CryptoFlyMaster
 A crypto toolbox with python.  
 
@@ -28,4 +26,3 @@ python main.py --nogui
 ```
 ## 鸣谢
 <a href='https://github.com/yanghe90'>@yanghe90</a>
->>>>>>> 7ec75f2 (Update README.md)
