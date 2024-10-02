@@ -12,6 +12,7 @@ A crypto toolbox with python.
 git clone https://github.com/rh666666/CryptoFlyMaster.git
 cd CryptoFlyMaster
 python -m pip install -r requirements.txt
+```
 ## 使用
 打开`cmd`或者`Power Shell`。  
 
