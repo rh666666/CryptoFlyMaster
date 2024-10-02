@@ -61,8 +61,8 @@ def nogui():
     while True:
         mode = input('1. 加密 2. 解密 (q 退出): ')
         if mode == '1':
-            message = input('明文：')
-            key = input('密钥：')
+            message = input('输入明文：')
+            key = input('输入密钥：')
             try:
                 key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
             except ValueError:
@@ -75,8 +75,8 @@ def nogui():
                 print('密钥矩阵在模26下不可逆，请重试。')
                 continue
         elif mode == '2':
-            cipher_text = input('密文：')
-            key = input('密钥：')
+            cipher_text = input('输入密文：')
+            key = input('输入密钥：')
             try:
                 key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
             except ValueError:
@@ -86,7 +86,7 @@ def nogui():
         elif mode == 'q':
             break
         else:
-            print('请按1或2键进行操作.')
+            print('输入有误，请重新输入。')
 
 def main():
     pass
