@@ -21,5 +21,9 @@ python main.py
 ```shell
 python main.py --nogui
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> 17241bf (Update README.md)
 ## 鸣谢
 <a href='https://github.com/yanghe90'>@yanghe90</a>
