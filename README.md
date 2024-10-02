@@ -3,7 +3,6 @@ A crypto toolbox with python.
 
 一个古典密码工具箱。
 
-# 开始
 ## 安装和依赖
 打开`cmd`或者`Power Shell`，输入以下命令：
 ```shell
