@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\学习相关资料\密码学\code\wrok1\UI\main.ui'
+# Form implementation generated from reading ui file 'd:\学习相关资料\apps\CryptoFlyMaster\UI\main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,38 +14,38 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(273, 203)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(320, 0, 176, 541))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout.addWidget(self.pushButton)
-        self.pushButton_2 = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout.addWidget(self.pushButton_2)
-        self.pushButton_3 = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.verticalLayout.addWidget(self.pushButton_3)
-        self.pushButton_4 = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.verticalLayout.addWidget(self.pushButton_4)
-        self.pushButton_5 = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.verticalLayout.addWidget(self.pushButton_5)
+        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser.setGeometry(QtCore.QRect(10, 0, 521, 581))
+        self.textBrowser.setObjectName("textBrowser")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 273, 26))
         self.menubar.setObjectName("menubar")
+        self.menuTradition = QtWidgets.QMenu(self.menubar)
+        self.menuTradition.setObjectName("menuTradition")
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.statusBar = QtWidgets.QStatusBar(MainWindow)
+        self.statusBar.setObjectName("statusBar")
+        MainWindow.setStatusBar(self.statusBar)
+        self.actionKeyedsub = QtWidgets.QAction(MainWindow)
+        self.actionKeyedsub.setObjectName("actionKeyedsub")
+        self.actionAffine = QtWidgets.QAction(MainWindow)
+        self.actionAffine.setObjectName("actionAffine")
+        self.actionVegenere = QtWidgets.QAction(MainWindow)
+        self.actionVegenere.setObjectName("actionVegenere")
+        self.actionPlayfair = QtWidgets.QAction(MainWindow)
+        self.actionPlayfair.setObjectName("actionPlayfair")
+        self.actionHill = QtWidgets.QAction(MainWindow)
+        self.actionHill.setObjectName("actionHill")
+        self.menuTradition.addAction(self.actionKeyedsub)
+        self.menuTradition.addAction(self.actionAffine)
+        self.menuTradition.addAction(self.actionVegenere)
+        self.menuTradition.addAction(self.actionPlayfair)
+        self.menuTradition.addAction(self.actionHill)
+        self.menubar.addAction(self.menuTradition.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -53,8 +53,17 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "使用密钥的单表代替密码"))
-        self.pushButton_2.setText(_translate("MainWindow", "仿射密码"))
-        self.pushButton_3.setText(_translate("MainWindow", "维几尼亚密码"))
-        self.pushButton_4.setText(_translate("MainWindow", "Playfair密码"))
-        self.pushButton_5.setText(_translate("MainWindow", "希尔密码"))
+        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<h1 style=\" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:xx-large; font-weight:600;\">CryptoFlyMaster</span></h1>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">A crypto toolbox with python.</p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">一个古典密码工具箱。</p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">从左上角工具栏选择功能</span></p></body></html>"))
+        self.menuTradition.setTitle(_translate("MainWindow", "古典密码"))
+        self.actionKeyedsub.setText(_translate("MainWindow", "使用密钥的单表代替密码"))
+        self.actionAffine.setText(_translate("MainWindow", "仿射密码"))
+        self.actionVegenere.setText(_translate("MainWindow", "维吉尼亚密码"))
+        self.actionPlayfair.setText(_translate("MainWindow", "Playfair密码"))
+        self.actionHill.setText(_translate("MainWindow", "希尔密码"))

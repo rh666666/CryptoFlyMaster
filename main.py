@@ -5,6 +5,9 @@ from PyQt5.QtGui import QIcon
 import UI.Ui_tool, UI.Ui_main
 import model.keyed_sub, model.affine, model.vigenere, model.playfair, model.hill
 from model.exgcd import rp as rp
+from model.errors import MessageError, KeyError, AlphaError
+from UI import toolbar
+
 
 class ui_keyed_sub(QWidget):
     def __init__(self):
@@ -102,13 +105,18 @@ class ui_playfair(QWidget):
         message = self.ui.lineEdit_text.text()
         key = self.ui.lineEdit_key1.text()
         fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"密文：{model.playfair.encrypt(message, key, fill_char)}")
+        try:
+            self.ui.textBrowser.setPlainText(f"密文：{model.playfair.encrypt(message, key, fill_char)}")
+        except MessageError:
+            self.ui.textBrowser.setPlainText('明文不能为空！')
+        except AlphaError:
+            self.ui.textBrowser.setPlainText('加密填充字符不能为空！')
 
     def decrypt(self):
-        cipher_text = self.ui.lineEdit.text()
+        cipher_text = self.ui.lineEdit_text.text()
         key = self.ui.lineEdit_key1.text()
         fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.playfair.encrypt(cipher_text, key, fill_char)}")
+        self.ui.textBrowser.setPlainText(f"明文：{model.playfair.decrypt(cipher_text, key)}")
 
 class ui_hill(QWidget):
     def __init__(self):
@@ -137,39 +145,25 @@ class ui_hill(QWidget):
             self.ui.textBrowser.setPlainText('密钥矩阵在模26下不可逆，请重试。')
 
     def decrypt(self):
-        cipher_text = self.ui.lineEdit.text()
+        cipher_text = self.ui.lineEdit_text.text()
         key = self.ui.lineEdit_key1.text()
         try:
             key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
         except ValueError:
             self.ui.textBrowser.setPlainText('密钥错误，请重试。')
-        fill_char = self.ui.lineEdit_fill.text()
-        self.ui.textBrowser.setPlainText(f"明文：{model.hill.encrypt(cipher_text, key, fill_char)}")
+        self.ui.textBrowser.setPlainText(f"明文：{model.hill.decrypt(cipher_text, key)}")
 
 def ui_mode():
-    print("不好意思哈，UI还没做好……")
-    print("这边建议 python main.py --nogui 无UI启动程序呢~")
     app = QApplication(sys.argv)
-    window = QMainWindow()
+    win = QMainWindow()
 
     main_ui = UI.Ui_main.Ui_MainWindow()
-    main_ui.setupUi(window)
-    
-    window.keyed_sub = ui_keyed_sub()
-    window.affine = ui_affine()
-    window.vegenere = ui_vegenere()
-    window.playfair = ui_playfair()
-    window.hill = ui_hill()
+    main_ui.setupUi(win)
+    toolbar.activate(win, main_ui)
 
-    main_ui.pushButton.clicked.connect(window.keyed_sub.show)
-    main_ui.pushButton_2.clicked.connect(window.affine.show)
-    main_ui.pushButton_3.clicked.connect(window.vegenere.show)
-    main_ui.pushButton_4.clicked.connect(window.playfair.show)
-    main_ui.pushButton_5.clicked.connect(window.hill.show)
-
-    window.setWindowTitle('CryptoFlyMaster')
-    window.setWindowIcon(QIcon('image/icon.png'))
-    window.show()
+    win.setWindowTitle('CryptoFlyMaster')
+    win.setWindowIcon(QIcon('image/icon.png'))
+    win.show()
     sys.exit(app.exec_())
 
 def nogui_mode():
