@@ -30,19 +30,33 @@ def nogui():
 
         if mode == '1':
             message = input('输入明文：')
-            key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            try:
+                key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            except ValueError:
+                print("密钥格式错误，请重新输入。")
+                continue
+
             cipher_text = encrypt(message, key1, key2)
             print('Encrypted text:', cipher_text)
+
         elif mode == '2':
             cipher_text = input('输入密文：')
-            key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            try:
+                key1, key2 = map(int,input('输入 key1, key2：').split(' '))
+            except ValueError:
+                print("密钥格式错误，请重新输入。")
+                continue
+
             if not rp(key1,26):
                 print('由于key1与26不互素，该密文不可逆！')
                 continue
+
             decrypted_text = decrypt(cipher_text, key1, key2)
             print('Decrypted text:', decrypted_text)
+
         elif mode == 'q':
             break
+
         else:
             print('输入有误，请重新输入。')
 
