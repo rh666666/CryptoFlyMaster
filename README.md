@@ -3,8 +3,8 @@ A crypto toolbox with python.
 
 一个古典密码工具箱。
 
-## 依赖
-前往<a href = 'https://www.python.org/downloads/'>Python官网</a>下载并安装Python
+## Python
+前往<a href = 'https://www.python.org/downloads/'>Python官网</a>下载并安装
 
 ## 安装
 打开`cmd`或者`Power Shell`，输入以下命令：
