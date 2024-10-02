@@ -21,6 +21,9 @@ python main.py
 ```shell
 python main.py --nogui
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> BetterUI
 ## 鸣谢
 <a href='https://github.com/yanghe90'>@yanghe90</a>
