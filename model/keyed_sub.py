@@ -34,7 +34,7 @@ def decrypt(text, key):
 
 def nogui():
     while(True):
-        mode = input('加密/解密？(1/2)：')
+        mode = input('1. 加密 2. 解密 (q 退出): ')
         if mode == '1':
             text = input('输入明文：')
             key = input('输入密钥key：')
@@ -45,11 +45,10 @@ def nogui():
             key = input('输入密钥key：')
             decrypted_text = decrypt(text, key)
             print('明文：', decrypted_text)
-        else:
-            print('Error: 请输入1/2.')
-        choice = input('是否继续？(y/n)：')
-        if choice != 'y':
+        elif mode == 'q':
             break
+        else:
+            print('输入有误，请重新输入。')
 
 def main():
     pass

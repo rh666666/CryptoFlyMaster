@@ -152,15 +152,15 @@ def decrypt(cipher_text, key):
 
 def nogui():
     while True:
-        mode = input("选择1加密2解密(输入q退出)：")
+        mode = input("1. 加密 2. 解密 (q 退出): ")
         if mode == "1":
-            message = input("明文：")
-            key = input("密钥：")
+            message = input("输入明文：")
+            key = input("输入密钥：")
             alpha = input("填充字母：")
             print("密文：", encrypt(message, key, alpha))
         elif mode == "2":
-            cipher_text = input("密文：")
-            key = input("密钥：")
+            cipher_text = input("输入密文：")
+            key = input("输入密钥：")
             print("明文：", decrypt(cipher_text, key))
         elif mode == "q":
             break
