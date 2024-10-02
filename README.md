@@ -21,3 +21,6 @@ python main.py
 ```shell
 python main.py --nogui
 ```
+
+## 鸣谢
+<a href='https://github.com/yanghe90'>@yanghe90</a>
