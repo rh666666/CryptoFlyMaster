@@ -1,16 +1,9 @@
 import S_BOX
 def init(text): #将明文，密钥转为64位二进制数
-    if len(text)!=16:
-            print('Invalid input: Text should be 16 characters long.')
-            return 0
     text_str = ''
     for i in text:
-        if i not in '0123456789ABCDEF':
-            print('Invalid input: Text should only contain hexadecimal characters.')
-            return 0
-        else:
-             i = f"{int(i, 16):04b}"
-             text_str += i
+        i = f"{int(i, 16):04b}"
+        text_str += i
     return text_str
 def IP(text): #初始置换
     text_str = ''
@@ -177,30 +170,6 @@ def decryption(text,keytext):#解密函数
         temp = L_temp
         L_temp = R_temp
         R_temp = xor_bcd(temp,F(R_temp,key_list[15-i]))
-def main():
-    try:
-        choice = int(input("请输入 1 进行加密, 2 进行解密: "))
-        if choice not in [1, 2]:
-            print("无效选择")
-            return
-        
-        Text = input("请输入文本 (16位十六进制): ")
-        Key = input("请输入密钥 (16位十六进制): ")
 
-        result = encryption(Text, Key) if choice == 1 else decryption(Text, Key)
-
-        if result:
-            if choice == 1:
-                print("加密后的密文：", result)
-            else:
-                print("解密后的明文：", result)
-        else:
-            print("处理失败，请检查输入。")
-
-    except ValueError:
-        print("输入无效，请输入数字 1 或 2。") 
 if __name__ == '__main__':
-     main()
-    # 明文：'123456ABCD132536'
-    # 密钥：'AABB09182736CCDD'
-    # 密文：'C0B7A8D05F3A829C'
+    pass
