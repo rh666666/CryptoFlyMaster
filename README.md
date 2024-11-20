@@ -17,7 +17,7 @@ python -m pip install -r requirements.txt
 ## 使用
 打开`cmd`或者`Power Shell`。  
 ```shell
-python main.py --nogui
+python main.py
 ```
 ## 鸣谢
 <a href='https://github.com/yanghe90'>@yanghe90</a>
