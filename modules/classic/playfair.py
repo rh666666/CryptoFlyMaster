@@ -16,7 +16,7 @@
 # 明文两个一组： pl    ay    fa    ir    ci       ph    er
 # 对应密文为: 　  LA    YF    PY   RS   MR    AM    CD
 # ----------------------------------------------------------------
-from crypto_modules.errors import MessageError, AlphaError
+from modules.errors import MessageError, AlphaError
 
 # 格式化文本
 def text_format(text):
@@ -150,7 +150,7 @@ def decrypt(cipher_text, key):
     return message
     
 
-def nogui():
+def main():
     while True:
         mode = input("1. 加密 2. 解密 (q 退出): ")
         if mode == "1":
@@ -166,9 +166,6 @@ def nogui():
             break
         else:
             print("输入有误，请重新输入。")
-
-def main():
-    pass
 
 if __name__ == "__main__":
     main()

@@ -32,7 +32,7 @@ def decrypt(text, key):
     decrypted_text = text.translate(traslate_table)
     return decrypted_text
 
-def nogui():
+def main():
     while(True):
         mode = input('1. 加密 2. 解密 (q 退出): ')
         if mode == '1':
@@ -49,9 +49,6 @@ def nogui():
             break
         else:
             print('输入有误，请重新输入。')
-
-def main():
-    pass
 
 if __name__ == '__main__':
     main()

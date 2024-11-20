@@ -12,8 +12,8 @@
 # ----------------------------------------------------------------
 
 from numpy import array, linalg
-from crypto_modules.mat import Matrix
-from crypto_modules.exgcd import rp
+from modules.math.mat import Matrix
+from modules.math.exgcd import rp
 
 # 字母转数字
 def number(alpha):
@@ -57,7 +57,7 @@ def decrypt(cipher_text, key):
         decrypted_groups.append(''.join([alpha(num) for num in decrypted_group]))
     return ''.join(decrypted_groups)
 
-def nogui():
+def main():
     while True:
         mode = input('1. 加密 2. 解密 (q 退出): ')
         if mode == '1':
@@ -87,9 +87,6 @@ def nogui():
             break
         else:
             print('输入有误，请重新输入。')
-
-def main():
-    pass
 
 if __name__ == '__main__':
     main()

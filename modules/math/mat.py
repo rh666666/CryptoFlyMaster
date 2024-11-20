@@ -1,5 +1,5 @@
 from numpy import array, linalg
-from crypto_modules.exgcd import inverse as inv, rp
+from modules.math.exgcd import inverse as inv, rp
 
 class Matrix():
     def __init__(self, matrix):

@@ -1,4 +1,4 @@
-from crypto_modules.exgcd import rp, inverse as inv
+from modules.math.exgcd import rp, inverse as inv
 
 def encrypt(message, key1, key2):
     table = [chr(i) for i in range(ord('a'), ord('z') + 1)]
@@ -24,7 +24,7 @@ def decrypt(cipher_text, key1, key2):
             decrypted_text += char
     return decrypted_text
 
-def nogui():
+def main():
     while True:
         mode = input('1. 加密 2. 解密 (q 退出): ')
 
@@ -59,9 +59,6 @@ def nogui():
 
         else:
             print('输入有误，请重新输入。')
-
-def main():
-    pass
 
 if __name__ == '__main__':
     main()
