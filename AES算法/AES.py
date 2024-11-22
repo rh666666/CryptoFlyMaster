@@ -4,6 +4,7 @@ import log_table
 import invlog_table
 def init(text):# 将明文，密钥按列变为4×4矩阵形式，元素为字符串16进制数
     text_list = [] #转换为16进制数的列表
+    text = ' '.join([text[i:i+2] for i in range(0, len(text), 2)])
     word_list = text.split(' ')
     for i in word_list:
         word = int(i,16)
@@ -268,8 +269,8 @@ def Decryption(Text,Key):#解密函数
         temp_matrix = invMixColumns(AddRoundKey_matrix)
 def main():
     choice = int(input("请输入 1 进行加密, 2 进行解密: "))
-    Text = input("密文(128位AES用16进制表示,空格分隔):") if choice == 2 else input("明文(128位AES用16进制表示,空格分隔):")
-    Key = input("密钥：")
+    Text = input("密文:") if choice == 2 else input("明文:")
+    Key = input("密钥:")
 
     switcher = {
         1: lambda: Encryption(Text, Key),
@@ -293,7 +294,7 @@ def main():
                 print(result[j][i].lstrip("0x").zfill(2), end=" ")
         print()  
 if __name__ == "__main__":
-    #明文：32 43 f6 a8 88 5a 30 8d 31 31 98 a2 e0 37 07 34
-    #密钥：2b 7e 15 16 28 ae d2 a6 ab f7 15 88 09 cf 4f 3c
+    #明文：3243f6a8885a308d313198a2e0370734
+    #密钥：2b7e151628aed2a6abf7158809cf4f3c
     #密文：39 25 84 1d 02 dc 09 fb dc 11 85 97 19 6a 0b 32
     main()
