@@ -55,7 +55,13 @@ def main():
                     print("加密后的密文:"+ result)
                 else:
                     data_bytes = bytes.fromhex(result)
-                    result = pkcs7_unpad(data_bytes).hex()
+
+                    try:
+                        result = pkcs7_unpad(data_bytes).hex()
+                    except ValueError:
+                        print("解密失败，密钥格式不正确。")
+                        continue
+
                     byte_data = bytes.fromhex(result)
                     result = ''.join(chr(b) for b in byte_data)
                     print("解密后的明文:"+ result)
