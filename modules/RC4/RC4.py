@@ -62,22 +62,26 @@ def rc4_encrypt_decrypt(key: str, text: str, is_encrypt: bool) -> str:
         return ''.join(chr(byte) for byte in result_bytes)
     
 def main():
-    choice = int(input("请输入 1 进行加密, 2 进行解密: "))
-    if choice not in [1, 2]:
-        print("无效选择")
-        return
+    while True:
+        choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
+        if choice == 'q':
+                    return
+        
+        if choice not in ['1', '2']:
+            print("无效选择")
+            continue
 
-    key = input("请输入密钥：")  # 用户输入密钥
-    text = input("请输入文本：")  # 用户输入明文或密文
+        key = input("请输入密钥：")  # 用户输入密钥
+        text = input("请输入文本：")  # 用户输入明文或密文
 
-    if choice == 1:
-        # 加密
-        ciphertext = rc4_encrypt_decrypt(key, text, is_encrypt=True)
-        print(f"加密后的密文：{ciphertext}")
-    else:
-        # 解密
-        plaintext = rc4_encrypt_decrypt(key, text, is_encrypt=False)
-        print(f"解密后的明文：{plaintext}")
+        if choice == '1':
+            # 加密
+            ciphertext = rc4_encrypt_decrypt(key, text, is_encrypt=True)
+            print(f"加密后的密文：{ciphertext}")
+        else:
+            # 解密
+            plaintext = rc4_encrypt_decrypt(key, text, is_encrypt=False)
+            print(f"解密后的明文：{plaintext}")
 
 if __name__ == '__main__':
     main()

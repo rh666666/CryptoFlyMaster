@@ -8,6 +8,7 @@ from modules.SM4 import ECB as SM4
 from modules.math import eratosthenes
 
 def nogui_mode():
+    error = False
     while True:
         os.system('cls' if os.name == 'nt' else 'clear') 
         print(pyfiglet.figlet_format('CryptoFlyMaster'))
@@ -23,16 +24,20 @@ def nogui_mode():
             8.  DES
             9.  RC4
             10. SM4
-            q. 退出
+              
+            q.  退出
             ''')
+        if error == True:
+            print('输入有误，请重新输入！')
+            error = False
         mode = input("输入：")
         if mode == '1':
             os.system('cls' if os.name == 'nt' else 'clear') 
-            print(pyfiglet.figlet_format('单表代替'))
+            print('单表代替:\n')
             keyed_sub.main()
         elif mode == '2':
             os.system('cls' if os.name == 'nt' else 'clear') 
-            print(pyfiglet.figlet_format('仿射密码'))
+            print(pyfiglet.figlet_format('Affine'))
             affine.main()
         elif mode == '3':
             os.system('cls' if os.name == 'nt' else 'clear') 
@@ -69,7 +74,7 @@ def nogui_mode():
             os.system('cls' if os.name == 'nt' else 'clear') 
             return
         else:
-            print("Error: 请输入1-8.")
+            error = True
 
 def main():
     parser = argparse.ArgumentParser(description='CryptoFlyMaster 一个古典密码工具箱')

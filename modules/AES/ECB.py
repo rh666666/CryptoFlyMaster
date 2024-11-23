@@ -21,46 +21,50 @@ def pkcs7_unpad(data: bytes) -> bytes:
         raise ValueError("Invalid padding.")
     return data[:-padding_len]
 def main():
-        choice = int(input("请输入 1 进行加密, 2 进行解密: "))
-        if choice not in [1, 2]:
-            print("无效选择")
-            return
-        
-        Text = input("请输入文本:")
-        if choice == 1:
-            Text_hex = ''.join(format(ord(char), '02x') for char in Text if char.isprintable())
-            data_bytes = bytes.fromhex(Text_hex)
-            Text_hex = pkcs7_pad(data_bytes).hex()
-        else:
-            Text_hex = Text
+        while True:
+            choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
+            if choice == 'q':
+                return
 
-        Key = input("请输入密钥(128位,16字节):") 
-        Key_hex = ''.join(format(ord(char), '02x') for char in Key if char.isprintable())
-
-        if len(Key) != 16:
-            print("密钥长度不为 128 位。")
-            return
-        
-        result = ''
-  
-        for i in range(0, len(Text_hex),32):
-            temp_str1 = Text_hex[i:i+32]
-            result_list = AES.Encryption(temp_str1, Key_hex) if choice == 1 else AES.Decryption(temp_str1, Key_hex)
-            for i in range(4):
-                for j in range(4):
-                    result += result_list[j][i].lstrip("0x").zfill(2)
-  
-        if result:
-            if choice == 1:
-                print("加密后的密文:"+ result)
+            if choice not in ['1', '2']:
+                print("无效选择")
+                continue
+            
+            Text = input("请输入文本:")
+            if choice == '1':
+                Text_hex = ''.join(format(ord(char), '02x') for char in Text if char.isprintable())
+                data_bytes = bytes.fromhex(Text_hex)
+                Text_hex = pkcs7_pad(data_bytes).hex()
             else:
-                data_bytes = bytes.fromhex(result)
-                result = pkcs7_unpad(data_bytes).hex()
-                byte_data = bytes.fromhex(result)
-                result = ''.join(chr(b) for b in byte_data)
-                print("解密后的明文:"+ result)
-        else:
-            print("处理失败，请检查输入。")
+                Text_hex = Text
+
+            Key = input("请输入密钥(128位,16字节):") 
+            Key_hex = ''.join(format(ord(char), '02x') for char in Key if char.isprintable())
+
+            if len(Key) != 16:
+                print("密钥长度不为 128 位。")
+                continue
+            
+            result = ''
+    
+            for i in range(0, len(Text_hex),32):
+                temp_str1 = Text_hex[i:i+32]
+                result_list = AES.Encryption(temp_str1, Key_hex) if choice == 1 else AES.Decryption(temp_str1, Key_hex)
+                for i in range(4):
+                    for j in range(4):
+                        result += result_list[j][i].lstrip("0x").zfill(2)
+    
+            if result:
+                if choice == '1':
+                    print("加密后的密文:"+ result)
+                else:
+                    data_bytes = bytes.fromhex(result)
+                    result = pkcs7_unpad(data_bytes).hex()
+                    byte_data = bytes.fromhex(result)
+                    result = ''.join(chr(b) for b in byte_data)
+                    print("解密后的明文:"+ result)
+            else:
+                print("处理失败，请检查输入。")
 
 if __name__ == '__main__':
     main()
