@@ -49,7 +49,7 @@ def main():
     
             for i in range(0, len(Text_hex),32):
                 temp_str1 = Text_hex[i:i+32]
-                result_list = AES.Encryption(temp_str1, Key_hex) if choice == 1 else AES.Decryption(temp_str1, Key_hex)
+                result_list = AES.Encryption(temp_str1, Key_hex) if choice == '1' else AES.Decryption(temp_str1, Key_hex)
                 for i in range(4):
                     for j in range(4):
                         result += result_list[j][i].lstrip("0x").zfill(2)

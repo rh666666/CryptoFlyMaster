@@ -48,7 +48,7 @@ def main():
 
             for i in range(0, len(Text_hex),16):
                 temp_str1 = Text_hex[i:i+16]
-                result += DES.encryption(temp_str1, Key_hex) if choice == 1 else DES.decryption(temp_str1, Key_hex)
+                result += DES.encryption(temp_str1, Key_hex) if choice == '1' else DES.decryption(temp_str1, Key_hex)
 
             if result:
                 if choice == '1':

@@ -48,7 +48,7 @@ def main():
 
             for i in range(0, len(Text_hex),32):
                 temp_str1 = Text_hex[i:i+32]
-                result += SM4.encryption(temp_str1, Key_hex) if choice == 1 else SM4.decryption(temp_str1, Key_hex)
+                result += SM4.encryption(temp_str1, Key_hex) if choice == '1' else SM4.decryption(temp_str1, Key_hex)
 
             if result:
                 if choice == '1':
