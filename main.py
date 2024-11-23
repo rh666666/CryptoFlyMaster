@@ -30,49 +30,62 @@ def nogui_mode():
         if error == True:
             print('输入有误，请重新输入！')
             error = False
+
         mode = input("输入：")
+
         if mode == '1':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print('单表代替:\n')
             keyed_sub.main()
+            
         elif mode == '2':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('Affine'))
             affine.main()
+
         elif mode == '3':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('Vigenere'))
             vigenere.main()
+
         elif mode == '4':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('Playfair'))
             playfair.main()
+
         elif mode == '5':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('Hill'))
             hill.main()
+
         elif mode == '6':
             os.system('cls' if os.name == 'nt' else 'clear') 
             eratosthenes.main()
+
         elif mode == '7':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('AES'))
             AES.main()
+
         elif mode == '8':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('DES'))
             DES.main()
+
         elif mode == '9':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('RC4'))
             RC4.main()
+
         elif mode == '10':
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('SM4'))
             SM4.main()
+
         elif mode == 'q':
             os.system('cls' if os.name == 'nt' else 'clear') 
             return
+        
         else:
             error = True
 
