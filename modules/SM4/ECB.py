@@ -59,7 +59,7 @@ def main():
                     try:
                         result = pkcs7_unpad(data_bytes).hex()
                     except ValueError:
-                        print("解密失败，密钥格式不正确。")
+                        print("解密失败，填充错误。")
                         continue
 
                     byte_data = bytes.fromhex(result)
