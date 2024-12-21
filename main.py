@@ -5,6 +5,7 @@ from modules.AES import ECB as AES
 from modules.DES import ECB as DES
 from modules.RC4 import RC4 as RC4
 from modules.SM4 import ECB as SM4
+from modules.ZUC import ZUC as ZUC
 from modules.math import eratosthenes
 
 def nogui_mode():
@@ -24,6 +25,7 @@ def nogui_mode():
             8.  DES
             9.  RC4
             10. SM4
+            11. ZUC（未完成）
               
             q.  退出
             ''')
@@ -81,6 +83,11 @@ def nogui_mode():
             os.system('cls' if os.name == 'nt' else 'clear') 
             print(pyfiglet.figlet_format('SM4'))
             SM4.main()
+            
+        elif mode == '11':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(pyfiglet.figlet_format('ZUC'))
+            ZUC.main()
 
         elif mode == 'q':
             os.system('cls' if os.name == 'nt' else 'clear') 

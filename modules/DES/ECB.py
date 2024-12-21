@@ -21,52 +21,52 @@ def pkcs7_unpad(data: bytes) -> bytes:
         raise ValueError("Invalid padding.")
     return data[:-padding_len]
 def main():
-        while True:
-            choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
-            if choice == 'q':
-                        return
-            
-            if choice not in ['1', '2']:
-                print("无效选择")
-                continue
-            
-            Text = input("请输入文本:")
+    while True:
+        choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
+        if choice == 'q':
+                    return
+        
+        if choice not in ['1', '2']:
+            print("无效选择")
+            continue
+        
+        Text = input("请输入文本:")
+        if choice == '1':
+            Text_hex = ''.join(format(ord(char), '02x') for char in Text if char.isprintable())
+            data_bytes = bytes.fromhex(Text_hex)
+            Text_hex = pkcs7_pad(data_bytes).hex()
+        else:
+            Text_hex = Text
+
+        Key = input("请输入密钥(64位,8字节):")
+        Key_hex = ''.join(format(ord(char), '02x') for char in Key if char.isprintable())
+        if len(Key_hex) != 16:
+            print("密钥长度不为 64 位。")
+            continue
+        
+        result = ''
+
+        for i in range(0, len(Text_hex),16):
+            temp_str1 = Text_hex[i:i+16]
+            result += DES.encryption(temp_str1, Key_hex) if choice == '1' else DES.decryption(temp_str1, Key_hex)
+
+        if result:
             if choice == '1':
-                Text_hex = ''.join(format(ord(char), '02x') for char in Text if char.isprintable())
-                data_bytes = bytes.fromhex(Text_hex)
-                Text_hex = pkcs7_pad(data_bytes).hex()
+                print("加密后的密文:"+ result)
             else:
-                Text_hex = Text
+                data_bytes = bytes.fromhex(result)
 
-            Key = input("请输入密钥(64位,8字节):")
-            Key_hex = ''.join(format(ord(char), '02x') for char in Key if char.isprintable())
-            if len(Key_hex) != 16:
-                print("密钥长度不为 64 位。")
-                continue
-            
-            result = ''
+                try:
+                    result = pkcs7_unpad(data_bytes).hex()
+                except ValueError:
+                        print("解密失败，填充错误。")
+                        continue
 
-            for i in range(0, len(Text_hex),16):
-                temp_str1 = Text_hex[i:i+16]
-                result += DES.encryption(temp_str1, Key_hex) if choice == '1' else DES.decryption(temp_str1, Key_hex)
-
-            if result:
-                if choice == '1':
-                    print("加密后的密文:"+ result)
-                else:
-                    data_bytes = bytes.fromhex(result)
-
-                    try:
-                        result = pkcs7_unpad(data_bytes).hex()
-                    except ValueError:
-                         print("解密失败，填充错误。")
-                         continue
-
-                    byte_data = bytes.fromhex(result)
-                    result = ''.join(chr(b) for b in byte_data)
-                    print("解密后的明文:"+ result)
-            else:
-                print("处理失败，请检查输入。")
+                byte_data = bytes.fromhex(result)
+                result = ''.join(chr(b) for b in byte_data)
+                print("解密后的明文:"+ result)
+        else:
+            print("处理失败，请检查输入。")
 
 if __name__ == '__main__':
     main()
