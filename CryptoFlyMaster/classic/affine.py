@@ -1,4 +1,4 @@
-from modules.math.exgcd import rp, inverse as inv
+from ..math.exgcd import rp, inverse as inv
 
 def encrypt(message, key1, key2):
     table = [chr(i) for i in range(ord('a'), ord('z') + 1)]

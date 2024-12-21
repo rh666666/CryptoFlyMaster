@@ -16,7 +16,7 @@
 # 明文两个一组： pl    ay    fa    ir    ci       ph    er
 # 对应密文为: 　  LA    YF    PY   RS   MR    AM    CD
 # ----------------------------------------------------------------
-from modules.errors import MessageError, AlphaError
+from ..errors import MessageError, AlphaError
 
 # 格式化文本
 def text_format(text):

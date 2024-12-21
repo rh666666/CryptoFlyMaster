@@ -12,8 +12,8 @@
 # ----------------------------------------------------------------
 
 from numpy import array, linalg
-from modules.math.mat import Matrix
-from modules.math.exgcd import rp
+from ..math.mat import Matrix
+from ..math.exgcd import rp
 
 # 字母转数字
 def number(alpha):

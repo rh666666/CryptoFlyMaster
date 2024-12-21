@@ -1,4 +1,4 @@
-from modules.SM4 import S_box
+from ..SM4 import S_box
 CK_matrix = [ 
  '00000000000001110000111000010101',
  '00011100001000110010101000110001',

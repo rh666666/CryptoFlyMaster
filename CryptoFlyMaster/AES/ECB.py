@@ -1,4 +1,4 @@
-from modules.AES import AES
+from ..AES import AES
 def pkcs7_pad(data: bytes, block_size: int = 16) -> bytes:
     """
     对数据进行 PKCS#7 填充。

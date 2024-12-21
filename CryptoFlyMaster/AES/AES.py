@@ -1,4 +1,4 @@
-from modules.AES import invlog_table, invS_box, S_Box, log_table
+from ..AES import invlog_table, invS_box, S_Box, log_table
 def init(text):# 将明文，密钥按列变为4×4矩阵形式，元素为字符串16进制数
     text_list = [] #转换为16进制数的列表
     text = ' '.join([text[i:i+2] for i in range(0, len(text), 2)])

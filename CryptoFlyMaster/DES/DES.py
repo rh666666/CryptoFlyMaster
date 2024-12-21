@@ -1,4 +1,4 @@
-from modules.DES import S_BOX
+from ..DES import S_BOX
 def init(text): #将明文，密钥转为64位二进制数
     text_str = ''
     for i in text:
