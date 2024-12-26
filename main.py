@@ -6,6 +6,8 @@ from modules.DES import ECB as DES
 from modules.RC4 import RC4 as RC4
 from modules.SM4 import ECB as SM4
 from modules.ZUC import ZUC as ZUC
+from modules.SM3 import SM3
+from modules.SHA1 import SHA1
 from modules.math import eratosthenes
 
 def nogui_mode():
@@ -26,6 +28,8 @@ def nogui_mode():
             9.  RC4
             10. SM4
             11. ZUC（未完成）
+            12. SM3
+            13. SHA-1
               
             q.  退出
             ''')
@@ -88,6 +92,16 @@ def nogui_mode():
             os.system('cls' if os.name == 'nt' else 'clear')
             print(pyfiglet.figlet_format('ZUC'))
             ZUC.main()
+            
+        elif mode == '12':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(pyfiglet.figlet_format('SM3'))
+            SM3.main()
+
+        elif mode == '13':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(pyfiglet.figlet_format('SHA-1'))
+            SHA1.main()
 
         elif mode == 'q':
             os.system('cls' if os.name == 'nt' else 'clear') 
