@@ -59,34 +59,72 @@ def decrypt(cipher_text, key):
 
 def main():
     while True:
-        mode = input('1. 加密 2. 解密 (q 退出): ')
+        print('\n1. 加密 2. 解密 (q 退出): ')
+        mode = input("\033[92m> \033[0m")
+
         if mode == '1':
-            message = input('输入明文：')
-            key = input('输入密钥：')
+            print('输入明文：')
+            message = input("\033[92m> \033[0m")
+            
+            print('输入密钥（用逗号分隔每行，用空格分隔每个元素）：')
+            key = input("\033[92m> \033[0m")
+            
             try:
                 key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
+                
             except ValueError:
-                print('密钥错误，请重试。')
+                print("\033[91m[-] 密钥错误，请重试。\033[0m")
                 continue
-            fill_alpha = input('填充字母：')
+            
+            print('填充字母：')
+            fill_alpha = input("\033[92m> \033[0m")
+            
+            print(f'\033[94m[+]\033[0m 明文：{message}')
+            print(f'\033[94m[+]\033[0m 密钥矩阵：\n\033[93m{array(key)}\033[0m')
+            print(f'\033[94m[+]\033[0m 填充字母：{fill_alpha}')
+            
             try:
-                print(f'密文：{encrypt(message, key, fill_alpha)}')
+                cipher_text = encrypt(message, key, fill_alpha)
+                
+                print('\033[92m[+] 加密成功！\033[0m')
+                print(f'\033[92m[+] 密文：{cipher_text}\033[0m')
+                
             except ValueError:
-                print('密钥矩阵在模26下不可逆，请重试。')
+                print("\033[91m[-] 密钥矩阵在模26下不可逆，请重试。\033[0m")
                 continue
+
         elif mode == '2':
-            cipher_text = input('输入密文：')
-            key = input('输入密钥：')
+            print('输入密文：')
+            cipher_text = input("\033[92m> \033[0m")
+            
+            print('输入密钥（用逗号分隔每行，用空格分隔每个元素）：')
+            key = input("\033[92m> \033[0m")
+            
             try:
                 key = [[int(num) for num in row.split(' ')] for row in key.split(',')]
+                
             except ValueError:
-                print('密钥错误，请重试。')
+                print("\033[91m[-] 密钥错误，请重试。\033[0m")
                 continue
-            print(f'明文：{decrypt(cipher_text, key)}')
+            
+            print(f'\033[94m[+]\033[0m 密文：{cipher_text}')
+            print(f'\033[94m[+]\033[0m 密钥矩阵：\n\033[93m{array(key)}\033[0m')
+            
+            try:
+                decrypted_text = decrypt(cipher_text, key)
+                
+                print('\033[92m[+] 解密成功！\033[0m')
+                print(f'\033[92m[+] 明文：{decrypted_text}\033[0m')
+                
+            except ValueError:
+                print("\033[91m[-] 密钥矩阵在模26下不可逆，请重试。\033[0m")
+                continue
+
         elif mode == 'q':
             break
+
         else:
-            print('输入有误，请重新输入。')
+            print('\033[91m[-] 输入有误，请重新输入。\033[0m')
 
 if __name__ == '__main__':
     main()

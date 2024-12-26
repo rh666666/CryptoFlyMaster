@@ -1,6 +1,9 @@
 # ################## 使用秘钥的单表代替密码 ########################
 # ----------------------------------------------------------------
 
+import os
+
+
 def dict_get(key, mode):
     table = [chr(i) for i in range(ord('a'), ord('z') + 1)]
     dic = {}
@@ -34,21 +37,37 @@ def decrypt(text, key):
 
 def main():
     while(True):
-        mode = input('1. 加密 2. 解密 (q 退出): ')
+        print('\n1. 加密 2. 解密 (q 退出): ')
+        mode = input("\033[92m> \033[0m")
         if mode == '1':
-            text = input('输入明文：')
-            key = input('输入密钥key：')
+            print('输入明文，可以是任意字母、数字或符号的组合，但只加密字母：')
+            text = input("\033[92m> \033[0m")
+            print('输入密钥，只能由英文小写字母组成：')
+            key = input("\033[92m> \033[0m")
             encrypted_text = encrypt(text, key)
-            print('密文：', encrypted_text)
+            
+            print(f'\033[94m[+]\033[0m 明文：{text}')
+            print(f'\033[94m[+]\033[0m 密钥：{key}')
+            print('\033[92m[+] 加密成功！\033[0m')
+            print(f'\033[92m[+] 密文：{encrypted_text}\033[0m')
+            
         elif mode == '2':
-            text = input('输入密文：')
-            key = input('输入密钥key：')
+            print('输入密文：')
+            text = input("\033[92m> \033[0m")
+            print('输入密钥，只能由英文小写字母组成：')
+            key = input("\033[92m> \033[0m")
             decrypted_text = decrypt(text, key)
-            print('明文：', decrypted_text)
+            
+            print(f'\033[94m[+]\033[0m 密文：{text}')
+            print(f'\033[94m[+]\033[0m 密钥：{key}')
+            print('\033[92m[+] 解密成功！\033[0m')
+            print(f'\033[92m[+] 明文：{decrypted_text}\033[0m')
+            
         elif mode == 'q':
             break
+        
         else:
-            print('输入有误，请重新输入。')
+            print('\033[91m[-] 输入有误，请重新输入。\033[0m')
 
 if __name__ == '__main__':
     main()

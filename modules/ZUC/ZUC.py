@@ -125,13 +125,45 @@ def test():
     print(test.encrypt_stream)
 
 def main():
-    message = input('请输入明文:')
-    key = input('请输入密钥:')
-    iv = input('请输入IV:')
-    plaintext_hex = ''.join([hex(ord(c))[2:].zfill(2) for c in message])
-    zuc = ZUC(plaintext_hex, key, iv)
-    zuc.encrypt()
-    print(zuc.encrypt_stream)
+    while True:
+        print('\n1. 生成密钥流 (q 退出): ')
+        choice = input("\033[92m> \033[0m")
+        if choice == 'q':
+            return
+        
+        if choice != '1':
+            print("\033[91m[-] 无效选择\033[0m")
+            continue
+        
+        try:
+            print("\033[94m[+]\033[0m 请输入明文:")
+            message = input("\033[92m> \033[0m")
+            if not message:
+                print("\033[91m[-] 明文不能为空！\033[0m")
+                continue
+            
+            print("\033[94m[+]\033[0m 请输入密钥:")
+            key = input("\033[92m> \033[0m")
+            if not key:
+                print("\033[91m[-] 密钥不能为空！\033[0m")
+                continue
+            
+            print("\033[94m[+]\033[0m 请输入IV:")
+            iv = input("\033[92m> \033[0m")
+            if not iv:
+                print("\033[91m[-] IV不能为空！\033[0m")
+                continue
+            
+            plaintext_hex = ''.join([hex(ord(c))[2:].zfill(2) for c in message])
+            zuc = ZUC(plaintext_hex, key, iv)
+            zuc.encrypt()
+            
+            print("\033[92m[+] 密钥流生成成功！\033[0m")
+            print("\033[94m[+]\033[0m 密钥流:")
+            print(f"\033[92m{zuc.encrypt_stream}\033[0m")
+        
+        except Exception as e:
+            print(f"\033[91m[-] 发生错误: {e}\033[0m")
 
 if __name__ == '__main__':
     main()

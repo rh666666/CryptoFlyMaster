@@ -152,20 +152,45 @@ def decrypt(cipher_text, key):
 
 def main():
     while True:
-        mode = input("1. 加密 2. 解密 (q 退出): ")
+        print('\n1. 加密 2. 解密 (q 退出): ')
+        mode = input("\033[92m> \033[0m")
+
         if mode == "1":
-            message = input("输入明文：")
-            key = input("输入密钥：")
-            alpha = input("填充字母：")
-            print("密文：", encrypt(message, key, alpha))
+            print('输入明文：')
+            message = input("\033[92m> \033[0m")
+            print('输入密钥：')
+            key = input("\033[92m> \033[0m")
+            print('填充字母：')
+            alpha = input("\033[92m> \033[0m")
+            
+            print(f'\033[94m[+]\033[0m 明文：{message}')
+            print(f'\033[94m[+]\033[0m 密钥：{key}')
+            print(f'\033[94m[+]\033[0m 填充字母：{alpha}')
+            
+            cipher_text = encrypt(message, key, alpha)
+            
+            print('\033[92m[+] 加密成功！\033[0m')
+            print(f'\033[92m[+] 密文：{cipher_text}\033[0m')
+
         elif mode == "2":
-            cipher_text = input("输入密文：")
-            key = input("输入密钥：")
-            print("明文：", decrypt(cipher_text, key))
+            print('输入密文：')
+            cipher_text = input("\033[92m> \033[0m")
+            print('输入密钥：')
+            key = input("\033[92m> \033[0m")
+            
+            print(f'\033[94m[+]\033[0m 密文：{cipher_text}')
+            print(f'\033[94m[+]\033[0m 密钥：{key}')
+            
+            decrypted_text = decrypt(cipher_text, key)
+            
+            print('\033[92m[+] 解密成功！\033[0m')
+            print(f'\033[92m[+] 明文：{decrypted_text}\033[0m')
+
         elif mode == "q":
             break
+
         else:
-            print("输入有误，请重新输入。")
+            print('\033[91m[-] 输入有误，请重新输入。\033[0m')
 
 if __name__ == "__main__":
     main()

@@ -111,35 +111,38 @@ def sha_1_encode(bitstring_hex):
 #主程序
 def main():
     while True:
-        print("==================== SHA-1 加密======================")
-        print("[1] 加密")
-        print("[0] 退出")
-        print("====================================================")
+        print('\n1. 加密 (q 退出): ')
+        choice = input("\033[92m> \033[0m")
+        if choice == 'q':
+            return
+        
+        if choice != '1':
+            print("\033[91m[-] 无效选择\033[0m")
+            continue
+        
         try:
-            choice = int(input("请输入操作选项 (0 或 1 ): "))
-            if choice == 0:
-                print("\n\n程序已退出。感谢使用 SHA-1 加密工具！")
-                break
-            elif choice == 1:
-                # 加密流程
-                plaintext = input("请输入明文 (UTF-8 编码，目前只支持字符长度 <56): ")
-                #明文转化为二进制位字符串
-                bitstring = string_to_bitstring(plaintext)
-                #填充为512位二进制，并转化为16进制，共128个字符
-                bitstring_hex = add_padding_bits(bitstring)
-                if not plaintext:
-                    raise ValueError("明文不能为空！")
-                #sha-1加密
-                ciphertext=sha_1_encode(bitstring_hex)
-                print("\n加密结果 (十六进制):")
-                print(ciphertext)
-            else:
-                raise ValueError("无效选项")
-    
+            print("请输入明文:")
+            plaintext = input("\033[92m> \033[0m")
+            if not plaintext:
+                raise ValueError("明文不能为空！")
+            
+            # 明文转化为二进制位字符串
+            bitstring = string_to_bitstring(plaintext)
+            # 填充为512位二进制，并转化为16进制，共128个字符
+            bitstring_hex = add_padding_bits(bitstring)
+            # sha-1加密
+            ciphertext = sha_1_encode(bitstring_hex)
+            
+            print("\033[92m[+] 加密成功！\033[0m")
+            print(f"\033[92m[+] 加密结果 (十六进制): {ciphertext}\033[0m")
+        
         except ValueError as e:
-            print(f"输入错误: {e}")
+            print(f"\033[91m[-] 输入错误: {e}\033[0m")
         except Exception as e:
-            print(f"发生错误: {e}")
+            print(f"\033[91m[-] 发生错误: {e}\033[0m")
+
+if __name__ == "__main__":
+    main()
             
 # 示例 密码书 P188
 # =============================================================================
@@ -154,6 +157,3 @@ def main():
 # print(f"输入字符串: {plaintext}")
 # print(f"密文串: {ciphertext}")
 # =============================================================================
-
-if __name__=="__main__":
-    main()

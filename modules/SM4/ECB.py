@@ -22,15 +22,17 @@ def pkcs7_unpad(data: bytes) -> bytes:
     return data[:-padding_len]
 def main():
     while True:
-        choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
+        print('\n1. 加密 2. 解密 (q 退出): ')
+        choice = input("\033[92m> \033[0m")
         if choice == 'q':
             return
-
+        
         if choice not in ['1', '2']:
-            print("无效选择")
+            print("\033[91m[-] 无效选择\033[0m")
             continue
         
-        Text = input("请输入文本:")
+        print("请输入文本:")
+        Text = input("\033[92m> \033[0m")
         if choice == '1':
             Text_hex = ''.join(format(ord(char), '02x') for char in Text if char.isprintable())
             data_bytes = bytes.fromhex(Text_hex)
@@ -38,36 +40,39 @@ def main():
         else:
             Text_hex = Text
 
-        Key = input("请输入密钥(128位,16字节):")
+        print("请输入密钥(128位,16字节):")
+        Key = input("\033[92m> \033[0m")
         Key_hex = ''.join(format(ord(char), '02x') for char in Key if char.isprintable())
         if len(Key) != 16:
-            print("密钥长度不为128位。")
+            print("\033[91m[-] 密钥长度不为128位。\033[0m")
             continue
         
         result = ''
 
-        for i in range(0, len(Text_hex),32):
+        for i in range(0, len(Text_hex), 32):
             temp_str1 = Text_hex[i:i+32]
             result += SM4.encryption(temp_str1, Key_hex) if choice == '1' else SM4.decryption(temp_str1, Key_hex)
 
         if result:
             if choice == '1':
-                print("加密后的密文:"+ result)
+                print(f"\033[94m[+]\033[0m 明文：{Text}")
+                print(f"\033[94m[+]\033[0m 密钥：{Key}")
+                print(f'\033[92m[+] 加密成功！\033[0m')
+                print(f'\033[92m[+] 密文：{result}\033[0m')
             else:
+                print(f"\033[94m[+]\033[0m 密文：{Text}")
+                print(f"\033[94m[+]\033[0m 密钥：{Key}")
+                
                 data_bytes = bytes.fromhex(result)
-
                 try:
                     result = pkcs7_unpad(data_bytes).hex()
                 except ValueError:
-                    print("解密失败，填充错误。")
+                    print("\033[91m[-] 解密失败，填充错误。\033[0m")
                     continue
-
                 byte_data = bytes.fromhex(result)
                 result = ''.join(chr(b) for b in byte_data)
-                print("解密后的明文:"+ result)
-        else:
-            print("处理失败，请检查输入。")
+                print(f'\033[92m[+] 解密成功！\033[0m')
+                print(f'\033[92m[+] 明文：{result}\033[0m')
 
 if __name__ == '__main__':
     main()
-    input("按任意键退出...")

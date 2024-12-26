@@ -63,25 +63,42 @@ def rc4_encrypt_decrypt(key: str, text: str, is_encrypt: bool) -> str:
     
 def main():
     while True:
-        choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
+        print('\n1. 加密 2. 解密 (q 退出): ')
+        choice = input("\033[92m> \033[0m")
         if choice == 'q':
-                    return
+            return
         
         if choice not in ['1', '2']:
-            print("无效选择")
+            print("\033[91m[-] 无效选择\033[0m")
             continue
-
-        key = input("请输入密钥：")  # 用户输入密钥
-        text = input("请输入文本：")  # 用户输入明文或密文
-
+        
+        print("请输入文本:")
+        text = input("\033[92m> \033[0m")
+        
+        print("请输入密钥:")
+        key = input("\033[92m> \033[0m")
+        key = [ord(c) for c in key]
+        
+        S = ksa(key)
+        keystream = prga(S, len(text))
+        
         if choice == '1':
-            # 加密
-            ciphertext = rc4_encrypt_decrypt(key, text, is_encrypt=True)
-            print(f"加密后的密文：{ciphertext}")
+            print(f'\033[94m[+]\033[0m 明文：{text}')
+            print(f"\033[94m[+]\033[0m 密钥：{key}")
+            
+            result = ''.join([chr(ord(c) ^ k) for c, k in zip(text, keystream)])
+            
+            print(f'\033[92m[+] 加密成功！\033[0m')
+            print(f'\033[92m[+] 密文：{result.encode().hex()}\033[0m')
         else:
-            # 解密
-            plaintext = rc4_encrypt_decrypt(key, text, is_encrypt=False)
-            print(f"解密后的明文：{plaintext}")
+            print(f"\033[94m[+]\033[0m 密文：{text}")
+            print(f"\033[94m[+]\033[0m 密钥：{key}")
+            
+            text = bytes.fromhex(text)
+            result = ''.join([chr(b ^ k) for b, k in zip(text, keystream)])
+            
+            print(f'\033[92m[+] 解密成功！\033[0m')
+            print(f'\033[92m[+] 明文：{result}\033[0m')
 
 if __name__ == '__main__':
     main()
