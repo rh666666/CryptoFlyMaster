@@ -143,13 +143,13 @@ def main():
             continue
         
         try:
-            print("\033[94m[+]\033[0m 请输入明文:")
+            print("\033[94m[+]\033[0m 请输入明文字符:")
             message = input("\033[92m> \033[0m")
             if not message:
                 print("\033[91m[-] 明文不能为空！\033[0m")
                 continue
             
-            print("\033[94m[+]\033[0m 请输入密钥:")
+            print("\033[94m[+]\033[0m 请输入密钥，数字:")
             key = input("\033[92m> \033[0m")
             if not key:
                 print("\033[91m[-] 密钥不能为空！\033[0m")
@@ -174,4 +174,4 @@ def main():
             print(f"\033[91m[-] 发生错误: {e}\033[0m")
 
 if __name__ == '__main__':
-    main()
+    test()
