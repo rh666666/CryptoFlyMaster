@@ -126,7 +126,7 @@ def test():
 
 def main():
     message = input('请输入明文:')
-    key = input('请输入密钥:')11
+    key = input('请输入密钥:')
     iv = input('请输入IV:')
     plaintext_hex = ''.join([hex(ord(c))[2:].zfill(2) for c in message])
     zuc = ZUC(plaintext_hex, key, iv)
