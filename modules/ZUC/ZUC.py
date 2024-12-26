@@ -117,29 +117,21 @@ class ZUC:
         self.lfsr_s.append(s16)
 
 
-def main():
-    while True:
-        choice = input("请输入 1 进行加密, 2 进行解密, q 退出: ")
-        if choice == 'q':
-            return
 
-        if choice not in ['1', '2']:
-            print("无效选择")
-            continue
-        
-        if choice == '1':
-            message = input("请输入明文:")
-            Text = ''.join(format(ord(char), '02x') for char in message if char.isprintable())
-            key = input("请输入密钥:")
-            IV = input("请输入IV:")
-            test = ZUC(Text, key, IV)
-            test.encrypt()
-            print(test.encrypt_stream)
-
-if __name__=="__main__":
+def test():
     test = ZUC('133333ACCBACBACBABCABCABCBACBABCABCABCBACBABBABCBACBABCABCB', '1111', 'acd')
 
     test.encrypt()
     print(test.encrypt_stream)
 
+def main():
+    message = input('请输入明文:')
+    key = input('请输入密钥:')11
+    iv = input('请输入IV:')
+    plaintext_hex = ''.join([hex(ord(c))[2:].zfill(2) for c in message])
+    zuc = ZUC(plaintext_hex, key, iv)
+    zuc.encrypt()
+    print(zuc.encrypt_stream)
 
+if __name__ == '__main__':
+    main()
