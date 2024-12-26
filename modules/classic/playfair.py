@@ -165,7 +165,7 @@ def main():
             
             print(f'\033[94m[+]\033[0m 明文：{message}')
             print(f'\033[94m[+]\033[0m 密钥：{key}')
-            print(f'\033[94m[+]\033[0m 填充字母：{alpha}')
+            print(f'\033[94m[+]\033[0m 填充字母：{alpha[0]}')
             
             cipher_text = encrypt(message, key, alpha)
             

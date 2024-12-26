@@ -81,7 +81,7 @@ def main():
             
             print(f'\033[94m[+]\033[0m 明文：{message}')
             print(f'\033[94m[+]\033[0m 密钥矩阵：\n\033[93m{array(key)}\033[0m')
-            print(f'\033[94m[+]\033[0m 填充字母：{fill_alpha}')
+            print(f'\033[94m[+]\033[0m 填充字母：{fill_alpha[0]}')
             
             try:
                 cipher_text = encrypt(message, key, fill_alpha)
