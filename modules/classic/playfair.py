@@ -86,7 +86,8 @@ def encrypt(message, key, alpha):
     
     # 明文分组
     groups = [message[i:i+2] for i in range(0, len(message) - 1, 2)]
-    print(groups)
+    formatted_groups = ' '.join([''.join(group) for group in groups])
+    print(f"\033[94m[+]\033[0m 明文分组：{formatted_groups}")
     
     # 明文两两对照
     cipher_text = ''
