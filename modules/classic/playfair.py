@@ -74,7 +74,8 @@ def encrypt(message, key, alpha):
     i = 0
     while True:
         if message[i] == message[i+1]:
-            message.insert(i+1, alpha[0])
+            message.insert(i+1, alpha[0]) # 在重复字母之间插入预先约定好的字母
+            # message[i+1] = alpha[0] # 用预先约定好的字母替换重复字母
 
         i += 2
         if i >= len(message) - 2:
@@ -85,6 +86,7 @@ def encrypt(message, key, alpha):
     
     # 明文分组
     groups = [message[i:i+2] for i in range(0, len(message) - 1, 2)]
+    print(groups)
     
     # 明文两两对照
     cipher_text = ''

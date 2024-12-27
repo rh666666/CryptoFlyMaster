@@ -18,22 +18,32 @@ def alpha(number):
 def encrypt(message, key):
     message = list(message.upper())
     key = ''.join(filter(str.isalpha, key)).upper()
-    for i in range(len(message)):
-        if message[i].isalpha():
-            message[i] = alpha((number(message[i]) + number(key[i % len(key)])) % 26)
-    cipher_text = ''.join(message).lower()
-
-    return cipher_text
+    cipher_text = []
+    key_index = 0
+    for char in message:
+        if char.isalpha():
+            shift = number(key[key_index % len(key)])
+            cipher_char = alpha((number(char) + shift) % 26)
+            cipher_text.append(cipher_char)
+            key_index += 1
+        else:
+            cipher_text.append(char)
+    return ''.join(cipher_text).lower()
 
 def decrypt(cipher_text, key):
     cipher_text = list(cipher_text.upper())
     key = ''.join(filter(str.isalpha, key)).upper()
-    for i in range(len(cipher_text)):
-        if cipher_text[i].isalpha():
-            cipher_text[i] = alpha((number(cipher_text[i]) - number(key[i % len(key)])) % 26)
-    message = ''.join(cipher_text).lower()
-    
-    return message
+    message = []
+    key_index = 0
+    for char in cipher_text:
+        if char.isalpha():
+            shift = number(key[key_index % len(key)])
+            plain_char = alpha((number(char) - shift + 26) % 26)
+            message.append(plain_char)
+            key_index += 1
+        else:
+            message.append(char)
+    return ''.join(message).lower()
 
 def main():
     while True:
