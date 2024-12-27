@@ -37,8 +37,7 @@ class ZUC:
     def LFSP_init(self):
         print("\033[94m[+]\033[0m 初始化 LFSR...")
         for i in range(0, 32):
-            if i % 8 == 0:
-                print(f"\033[94m[+]\033[0m 初始化进度: {i}/32")
+            print(f"\033[94m[+]\033[0m 初始化进度: {i+1}/32")
             v = self.bit_reorganization()
             u = self.F(v) ^ (v >> 64 & 0xffffffff)
             self.LFSPwithworkmode_n(u >> 1)
