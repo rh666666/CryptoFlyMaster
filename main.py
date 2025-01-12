@@ -10,7 +10,7 @@ from modules.SM3 import SM3
 from modules.SHA1 import SHA1
 from modules.math import eratosthenes
 
-def nogui_mode():
+def console_mode():
     error = False
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -151,10 +151,124 @@ def nogui_mode():
 
 def main():
     parser = argparse.ArgumentParser(description='CryptoFlyMaster 一个古典密码工具箱')
-    parser.add_argument('--nogui', action='store_true', help='使用字符界面')
+    parser.add_argument('--console', action='store_true', help='控制台界面')
+    parser.add_argument('--version', action='version', version='CryptoFlyMaster 1.0')
+    
+    # 参数选择模式，用法举例：python main.py playfair --encrypt abcd --key haks --fill x
+    subparsers = parser.add_subparsers(title='模式', dest='mode')
+    
+    # 单表代替
+    keyed_sub_parser = subparsers.add_parser('keyed_sub', help='单表代替密码')
+    keyed_sub_parser.add_argument('-e', '--encrypt', help='加密')
+    keyed_sub_parser.add_argument('-d', '--decrypt', help='解密')
+    keyed_sub_parser.add_argument('-k', '--key', help='密钥')
+    
+    # 仿射
+    affine_parser = subparsers.add_parser('affine', help='仿射密码')
+    affine_parser.add_argument('-e', '--encrypt', help='加密')
+    affine_parser.add_argument('-d', '--decrypt', help='解密')
+    affine_parser.add_argument('-a', help='密钥a')
+    affine_parser.add_argument('-b', help='密钥b')
+    
+    # playfair
+    playfair_parser = subparsers.add_parser('playfair', help='Playfair密码')
+    playfair_parser.add_argument('-e', '--encrypt', help='加密')
+    playfair_parser.add_argument('-d', '--decrypt', help='解密')
+    playfair_parser.add_argument('-k', '--key', help='密钥')
+    playfair_parser.add_argument('--fill', help='填充字符')
+    
+    # 维吉尼亚
+    vigenere_parser = subparsers.add_parser('vigenere', help='维吉尼亚密码')
+    vigenere_parser.add_argument('-e', '--encrypt', help='加密')
+    vigenere_parser.add_argument('-d', '--decrypt', help='解密')
+    vigenere_parser.add_argument('-k', '--key', help='密钥')
+    
+    # 希尔
+    hill_parser = subparsers.add_parser('hill', help='希尔密码')
+    hill_parser.add_argument('-e', '--encrypt', help='加密')
+    hill_parser.add_argument('-d', '--decrypt', help='解密')
+    hill_parser.add_argument('-k', '--key', help='密钥')
+    hill_parser.add_argument('--fill', help='填充字符')
+    
+    # DES
+    des_parser = subparsers.add_parser('des', help='DES')
+    des_parser.add_argument('-e', '--encrypt', help='加密')
+    des_parser.add_argument('-d', '--decrypt', help='解密')
+    des_parser.add_argument('-k', '--key', help='密钥')
+    
+    # AES
+    aes_parser = subparsers.add_parser('aes', help='AES')
+    aes_parser.add_argument('-e', '--encrypt', help='加密')
+    aes_parser.add_argument('-d', '--decrypt', help='解密')
+    aes_parser.add_argument('-k', '--key', help='密钥')
+    
+    # RC4
+    rc4_parser = subparsers.add_parser('rc4', help='RC4')
+    rc4_parser.add_argument('-e', '--encrypt', help='加密')
+    rc4_parser.add_argument('-d', '--decrypt', help='解密')
+    rc4_parser.add_argument('-k', '--key', help='密钥')
+    
+    # SM4
+    sm4_parser = subparsers.add_parser('sm4', help='SM4')
+    sm4_parser.add_argument('-e', '--encrypt', help='加密')
+    sm4_parser.add_argument('-d', '--decrypt', help='解密')
+    sm4_parser.add_argument('-k', '--key', help='密钥')
+    
+    # ZUC
+    zuc_parser = subparsers.add_parser('zuc', help='ZUC')
+    zuc_parser.add_argument('-e', '--encrypt', help='加密')
+    zuc_parser.add_argument('-d', '--decrypt', help='解密')
+    zuc_parser.add_argument('-k', '--key', help='密钥')
+    
+    # SM3
+    sm3_parser = subparsers.add_parser('sm3', help='SM3')
+    sm3_parser.add_argument('-e', '--encrypt', help='加密')
+    sm3_parser.add_argument('-d', '--decrypt', help='解密')
+    sm3_parser.add_argument('-k', '--key', help='密钥')
+    
+    # SHA-1
+    sha1_parser = subparsers.add_parser('sha1', help='SHA-1')
+    sha1_parser.add_argument('-e', '--encrypt', help='加密')
+    sha1_parser.add_argument('-d', '--decrypt', help='解密')
+    sha1_parser.add_argument('-k', '--key', help='密钥')
+    
     args = parser.parse_args()
 
-    nogui_mode()
+    if args.console:
+        console_mode()
+        
+    elif args.mode == 'keyed_sub':
+        if args.encrypt:
+            print(keyed_sub.encrypt(args.encrypt, args.key))
+        elif args.decrypt:
+            print(keyed_sub.decrypt(args.decrypt, args.key))
+            
+    elif args.mode == 'affine':
+        if args.encrypt:
+            print(affine.encrypt(args.encrypt, args.a, args.b))
+        elif args.decrypt:
+            print(affine.decrypt(args.decrypt, args.a, args.b))
+        
+    elif args.mode == 'playfair':
+        if args.encrypt:
+            print(playfair.encrypt(args.encrypt, args.key, args.fill))
+        elif args.decrypt:
+            print(playfair.decrypt(args.decrypt, args.key, args.fill))
+            
+    elif args.mode == 'vigenere':
+        if args.encrypt:
+            print(vigenere.encrypt(args.encrypt, args.key))
+        elif args.decrypt:
+            print(vigenere.decrypt(args.decrypt, args.key))
+            
+    elif args.mode == 'hill':
+        if args.encrypt:
+            print(hill.encrypt(args.encrypt, args.key, args.fill))
+        elif args.decrypt:
+            print(hill.decrypt(args.decrypt, args.key, args.fill))
+            
+    else:
+        parser.print_help()
 
 if __name__ == '__main__':
     main()
