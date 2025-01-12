@@ -246,9 +246,9 @@ def main():
             
     elif args.mode == 'affine':
         if args.encrypt:
-            print(affine.encrypt(args.encrypt, args.a, args.b))
+            print(affine.encrypt(args.encrypt, int(args.a), int(args.b)))
         elif args.decrypt:
-            print(affine.decrypt(args.decrypt, args.a, args.b))
+            print(affine.decrypt(args.decrypt, int(args.a), int(args.b)))
         
     elif args.mode == 'playfair':
         if args.encrypt:
