@@ -262,10 +262,16 @@ def main():
             print(vigenere.decrypt(args.decrypt, args.key))
             
     elif args.mode == 'hill':
+        try:
+            key = [[int(num) for num in row.split(' ')] for row in args.key.split(',')]
+            
+        except ValueError:
+            print("\033[91m[-] 密钥错误，请重试。\033[0m")
+            exit()
         if args.encrypt:
-            print(hill.encrypt(args.encrypt, args.key, args.fill))
+            print(hill.encrypt(args.encrypt, key, args.fill))
         elif args.decrypt:
-            print(hill.decrypt(args.decrypt, args.key, args.fill))
+            print(hill.decrypt(args.decrypt, key, args.fill))
             
     else:
         parser.print_help()
