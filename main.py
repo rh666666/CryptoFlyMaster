@@ -1,4 +1,4 @@
-import argparse,os , pyfiglet
+import argparse,os
 
 from modules.classic import affine, hill, keyed_sub, playfair, vigenere
 from modules.AES import ECB as AES
@@ -11,6 +11,7 @@ from modules.SHA1 import SHA1
 from modules.math import eratosthenes
 
 def console_mode():
+    import pyfiglet
     error = False
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
