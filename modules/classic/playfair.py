@@ -57,7 +57,7 @@ def setTwoDimensionList(key):
     return table
 
 # 加密算法
-def encrypt(message, key, alpha):
+def encrypt(message, key, alpha='X'):
     # 构造矩阵
     table = setTwoDimensionList(key)
     
@@ -87,7 +87,7 @@ def encrypt(message, key, alpha):
     # 明文分组
     groups = [message[i:i+2] for i in range(0, len(message) - 1, 2)]
     formatted_groups = ' '.join([''.join(group) for group in groups])
-    print(f"\033[94m[+]\033[0m 明文分组：{formatted_groups}")
+    # print(f"\033[94m[+]\033[0m 明文分组：{formatted_groups}")
     
     # 明文两两对照
     cipher_text = ''

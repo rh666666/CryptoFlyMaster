@@ -251,9 +251,12 @@ def main():
         
     elif args.mode == 'playfair':
         if args.encrypt:
-            print(playfair.encrypt(args.encrypt, args.key, args.fill))
+            if args.fill:
+                print(playfair.encrypt(args.encrypt, args.key, args.fill))
+            else:
+                print(playfair.encrypt(args.encrypt, args.key))
         elif args.decrypt:
-            print(playfair.decrypt(args.decrypt, args.key, args.fill))
+            print(playfair.decrypt(args.decrypt, args.key))
             
     elif args.mode == 'vigenere':
         if args.encrypt:
@@ -269,9 +272,12 @@ def main():
             print("\033[91m[-] 密钥错误，请重试。\033[0m")
             exit()
         if args.encrypt:
-            print(hill.encrypt(args.encrypt, key, args.fill))
+            if args.fill:
+                print(hill.encrypt(args.encrypt, key, args.fill))
+            else:
+                print(hill.encrypt(args.encrypt, key))
         elif args.decrypt:
-            print(hill.decrypt(args.decrypt, key, args.fill))
+            print(hill.decrypt(args.decrypt, key))
             
     else:
         parser.print_help()

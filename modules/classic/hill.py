@@ -29,7 +29,7 @@ def make_groups(text, key):
     groups = [ls[i:i + len(key)] for i in range(0, len(ls), len(key))]
     return array(groups)
 
-def encrypt(message, key, fill_alpha):
+def encrypt(message, key, fill_alpha='x'):
     message = message.upper()
     key = array(key)
     if not rp(int(round(linalg.det(key))), 26):
