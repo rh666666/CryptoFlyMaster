@@ -61,6 +61,19 @@ def rc4_encrypt_decrypt(key: str, text: str, is_encrypt: bool) -> str:
         # 解密返回明文字符串
         return ''.join(chr(byte) for byte in result_bytes)
     
+def encrypt(text, key):
+    key = [ord(c) for c in key]
+    S = ksa(key)
+    keystream = prga(S, len(text))
+    return ''.join([chr(ord(c) ^ k) for c, k in zip(text, keystream)]).encode().hex()
+
+def decrypt(text, key):
+    key = [ord(c) for c in key]
+    S = ksa(key)
+    keystream = prga(S, len(text))
+    text = bytes.fromhex(text)
+    return ''.join([chr(b ^ k) for b, k in zip(text, keystream)])
+    
 def main():
     while True:
         print('\n1. 加密 2. 解密 (q 退出): ')

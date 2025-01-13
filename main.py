@@ -280,6 +280,24 @@ def main():
         elif args.decrypt:
             print(hill.decrypt(args.decrypt, key))
             
+    elif args.mode == 'des':
+        if args.encrypt:
+            print(DES.encrypt(args.encrypt, args.key))
+        elif args.decrypt:
+            print(DES.decrypt(args.decrypt, args.key))
+            
+    elif args.mode == 'aes':
+        if args.encrypt:
+            print(AES.encrypt(args.encrypt, args.key))
+        elif args.decrypt:
+            print(AES.decrypt(args.decrypt, args.key))
+            
+    # elif args.mode == 'rc4':
+    #     if args.encrypt:
+    #         print(RC4.encrypt(args.encrypt, args.key))
+    #     elif args.decrypt:
+    #         print(RC4.decrypt(args.decrypt, args.key))
+            
     else:
         parser.print_help()
 
