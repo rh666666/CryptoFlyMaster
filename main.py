@@ -292,11 +292,17 @@ def main():
         elif args.decrypt:
             print(AES.decrypt(args.decrypt, args.key))
             
-    # elif args.mode == 'rc4':
-    #     if args.encrypt:
-    #         print(RC4.encrypt(args.encrypt, args.key))
-    #     elif args.decrypt:
-    #         print(RC4.decrypt(args.decrypt, args.key))
+    elif args.mode == 'rc4':
+        if args.encrypt:
+            print(RC4.rc4_encrypt_decrypt(args.key, args.encrypt, is_encrypt=True))
+        elif args.decrypt:
+            print(RC4.rc4_encrypt_decrypt(args.key, args.decrypt, is_encrypt=False))
+            
+    elif args.mode == 'sm4':
+        if args.encrypt:
+            print(SM4.encrypt(args.encrypt, args.key))
+        elif args.decrypt:
+            print(SM4.decrypt(args.decrypt, args.key))
             
     else:
         parser.print_help()

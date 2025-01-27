@@ -20,6 +20,50 @@ def pkcs7_unpad(data: bytes) -> bytes:
     if padding_len > len(data):
         raise ValueError("Invalid padding.")
     return data[:-padding_len]
+
+def encrypt(text, key):
+    Text_hex = ''.join(format(ord(char), '02x') for char in text if char.isprintable())
+    data_bytes = bytes.fromhex(Text_hex)
+    Text_hex = pkcs7_pad(data_bytes).hex()
+    
+    Key_hex = ''.join(format(ord(char), '02x') for char in key if char.isprintable())
+    if len(Key_hex) != 32:
+        print("\033[91m[-] 密钥长度不为 128 位。\033[0m")
+        exit()
+        
+    result = ''
+
+    for i in range(0, len(Text_hex),32):
+        temp_str1 = Text_hex[i:i+32]
+        result += SM4.encryption(temp_str1, Key_hex)
+        
+    return result
+
+def decrypt(text, key):
+    Text_hex = text
+    Key_hex = ''.join(format(ord(char), '02x') for char in key if char.isprintable())
+    if len(Key_hex) != 32:
+        print("\033[91m[-] 密钥长度不为 128 位。\033[0m")
+        exit()
+        
+    result = ''
+
+    for i in range(0, len(Text_hex),32):
+        temp_str1 = Text_hex[i:i+32]
+        result += SM4.decryption(temp_str1, Key_hex)
+        
+    data_bytes = bytes.fromhex(result)
+
+    try:
+        result = pkcs7_unpad(data_bytes).hex()
+    except ValueError:
+        print("\033[91m[-] 解密失败，填充错误。\033[0m")
+        exit()
+    byte_data = bytes.fromhex(result)
+    result = ''.join(chr(b) for b in byte_data)
+    
+    return result
+
 def main():
     while True:
         print('\n1. 加密 2. 解密 (q 退出): ')
