@@ -61,57 +61,36 @@ def rc4_encrypt_decrypt(key: str, text: str, is_encrypt: bool) -> str:
         # 解密返回明文字符串
         return ''.join(chr(byte) for byte in result_bytes)
     
-def encrypt(text, key):
-    key = [ord(c) for c in key]
-    S = ksa(key)
-    keystream = prga(S, len(text))
-    return ''.join([chr(ord(c) ^ k) for c, k in zip(text, keystream)]).encode().hex()
-
-def decrypt(text, key):
-    key = [ord(c) for c in key]
-    S = ksa(key)
-    keystream = prga(S, len(text))
-    text = bytes.fromhex(text)
-    return ''.join([chr(b ^ k) for b, k in zip(text, keystream)])
-    
 def main():
     while True:
         print('\n1. 加密 2. 解密 (q 退出): ')
         choice = input("\033[92m> \033[0m")
-        if choice == 'q':
-            return
-        
         if choice not in ['1', '2']:
             print("\033[91m[-] 无效选择\033[0m")
             continue
-        
+        if choice == 'q':
+            return
+
         print("请输入文本:")
         text = input("\033[92m> \033[0m")
         
         print("请输入密钥:")
         key = input("\033[92m> \033[0m")
-        key = [ord(c) for c in key]
-        
-        S = ksa(key)
-        keystream = prga(S, len(text))
-        
+
         if choice == '1':
             print(f'\033[94m[+]\033[0m 明文：{text}')
             print(f"\033[94m[+]\033[0m 密钥：{key}")
-            
-            result = ''.join([chr(ord(c) ^ k) for c, k in zip(text, keystream)])
-            
+            # 加密
+            ciphertext = rc4_encrypt_decrypt(key, text, is_encrypt=True)
             print(f'\033[92m[+] 加密成功！\033[0m')
-            print(f'\033[92m[+] 密文：{result.encode().hex()}\033[0m')
+            print(f"print(f'\033[92m[+] 密文：{ciphertext}\033[0m')")
         else:
             print(f"\033[94m[+]\033[0m 密文：{text}")
             print(f"\033[94m[+]\033[0m 密钥：{key}")
-            
-            text = bytes.fromhex(text)
-            result = ''.join([chr(b ^ k) for b, k in zip(text, keystream)])
-            
+            # 解密
+            plaintext = rc4_encrypt_decrypt(key, text, is_encrypt=False)
             print(f'\033[92m[+] 解密成功！\033[0m')
-            print(f'\033[92m[+] 明文：{result}\033[0m')
+            print(f'\033[92m[+] 明文：{plaintext}\033[0m')
 
 if __name__ == '__main__':
     main()
